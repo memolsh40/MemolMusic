@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginTop="5dp"
+    android:layout_height="wrap_content"
+    android:id="@+id/SongsItem">
+
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewList"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_margin="6dp"
+        android:layout_marginTop="10dp"
+          android:clickable="true"
+        android:checkable="true"
+
+        tools:ignore="MissingConstraints">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardViewImgList"
+                android:layout_gravity="bottom"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:cardElevation="10dp"
+                android:elevation="20dp"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="33dp"
+                android:clickable="true"
+                android:checkable="true"
+                tools:ignore="MissingConstraints">
+                <ImageView
+                    android:id="@+id/imageListFrag"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="center"
+                    android:foregroundGravity="center"
+
+                    android:contentDescription="TODO"
+                    tools:ignore="ContentDescription,HardcodedText,VisualLintBounds" />
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+            <TextView
+                android:id="@+id/txtMusicName"
+                android:layout_width="200dp"
+                android:layout_height="25dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="30dp"
+                android:maxLines="1"
+                android:text="Music Name"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText,TextSizeCheck" />
+
+            <TextView
+                android:id="@+id/txtArtistName"
+                android:layout_width="250dp"
+                android:layout_height="25dp" android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="90dp"
+                android:layout_marginBottom="6dp"
+                android:layout_toEndOf="@+id/cardViewImgList"
+                android:maxLines="1"
+                android:text="Artist Name"
+                android:textSize="10sp"
+                tools:ignore="HardcodedText,SmallSp" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/iconButton"
+                style="?attr/materialIconButtonStyle"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="21dp"
+                android:layout_toEndOf="@+id/txtMusicName"
+                app:icon="@drawable/baseline_more_vert_24"
+                app:iconGravity="textStart"
+                tools:ignore="ExtraText,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+
+            <!--            <ImageView-->
+<!--                android:id="@+id/btnImgList"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentTop="true"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_alignParentBottom="true"-->
+<!--                android:layout_marginStart="15dp"-->
+<!--               android:clickable="true"-->
+<!--                android:backgroundTintMode="screen"-->
+<!--                android:elevation="100dp"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:layout_marginEnd="10dp"-->
+<!--                android:layout_marginBottom="21dp"-->
+<!--                android:layout_toEndOf="@+id/txtMusicName"-->
+<!--                android:src="@drawable/baseline_play_arrow_24"-->
+<!--                tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />-->
+
+
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

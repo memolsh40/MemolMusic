@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_gravity="bottom"
+        android:id="@+id/playCardView"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        app:cardElevation="10dp"
+        android:elevation="20dp"
+        android:layout_margin="6dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="33dp"
+        android:clickable="true"
+        android:checkable="true"
+        tools:ignore="MissingConstraints">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardViewImg"
+                android:layout_gravity="bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardElevation="10dp"
+                android:elevation="20dp"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="33dp"
+                android:clickable="true"
+                android:checkable="true"
+                tools:ignore="MissingConstraints">
+            <ImageView
+                android:id="@+id/imageListMain"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                android:layout_gravity="center"
+                android:foregroundGravity="center"
+                android:src="@drawable/baseline_music_note_24"
+                android:contentDescription="TODO"
+                tools:ignore="ContentDescription,HardcodedText" />
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <TextView
+                android:id="@+id/txtMusicName"
+                android:layout_width="150dp"
+                android:layout_height="25dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="30dp"
+                android:layout_toEndOf="@+id/cardViewImg"
+                android:text="Music Name"
+                android:singleLine="true"
+                android:scrollHorizontally="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:textStyle="bold"
+                tools:ignore="NotSibling" />
+
+            <TextView
+                android:id="@+id/txtArtistName"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="218dp"
+                android:layout_marginBottom="3dp"
+                android:maxLines="1"
+                android:text="Artist Name"
+                android:textSize="10sp"
+                tools:ignore="HardcodedText,SmallSp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNext"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                style="?attr/materialIconButtonStyle"
+               app:iconGravity="textStart"
+               android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="100dp"
+                android:layout_marginBottom="12dp"
+                android:layout_toEndOf="@+id/txtMusicName"
+                app:icon="@drawable/skipnest"
+                android:clickable="true"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?attr/materialIconButtonStyle"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="57dp"
+                android:layout_marginBottom="8dp"
+                android:layout_toEndOf="@+id/txtMusicName"
+             app:icon="@drawable/_8px"
+                tools:ignore="RelativeOverlap,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?attr/materialIconButtonStyle"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="8dp"
+                android:layout_toEndOf="@+id/txtMusicName"
+                app:icon="@drawable/back"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        app:liftOnScroll="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+
+      <androidx.appcompat.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:background="@null"
+          android:layout_height="56dp">
+          <com.google.android.material.button.MaterialButton
+              android:id="@+id/btnSearchIcon"
+              style="?attr/materialIconButtonStyle"
+              android:layout_width="40dp"
+              android:layout_height="40dp"
+              android:layout_gravity="right"
+              android:layout_marginStart="22dp"
+              android:layout_marginEnd="7dp"
+              android:layout_marginTop="8dp"
+              android:layout_toEndOf="@+id/txtMusicName"
+              app:icon="@drawable/baseline_search_24"
+              app:iconGravity="textStart"
+              tools:ignore="ExtraText,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+      </androidx.appcompat.widget.Toolbar>
+
+
+
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="SpeakableTextPresentCheck" />
+              </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/fragContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        tools:ignore="SpeakableTextPresentCheck">
+
+    </androidx.viewpager.widget.ViewPager>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.ButtonShitPlay"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_gravity="center"
+        android:id="@+id/playCardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardElevation="10dp"
+        android:elevation="100dp"
+        android:layout_marginTop="35dp"
+        app:cardCornerRadius="40dp"
+        android:clickable="false"
+        tools:ignore="MissingConstraints">
+    <ImageView
+        android:id="@+id/imageViewbtnShit"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/ic_launcher_background" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/txtMusicNameBtnShit"
+        android:layout_width="300dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="5dp"
+        android:text="Music Name"
+        android:singleLine="true"
+        android:scrollHorizontally="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:gravity="center"
+        tools:ignore="NotSibling" />
+
+    <TextView
+        android:id="@+id/txtMusicArtistBtnShit"
+        android:layout_width="300dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:text="Music Name"
+        android:textSize="15dp"
+        tools:ignore="NotSibling,TextSizeCheck" />
+
+    <SeekBar
+        android:id="@+id/SeekbarbtnShit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBackbtnShit"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            style="?attr/materialIconButtonStyle"
+            android:layout_marginStart="85dp"
+            android:gravity="center"
+            app:iconSize="40dp"
+            app:iconGravity="textStart"
+            app:icon="@drawable/back"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPlaybtnShit"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            style="?attr/materialIconButtonStyle"
+            android:gravity="center"
+            app:iconSize="40dp"
+            app:iconGravity="textStart"
+            app:icon="@drawable/baseline_pause_24"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNextbtnShit"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            style="?attr/materialIconButtonStyle"
+            android:gravity="center"
+            app:iconGravity="textStart"
+            app:iconSize="40dp"
+            app:icon="@drawable/skipnest"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+
+    </LinearLayout>
+</LinearLayout>

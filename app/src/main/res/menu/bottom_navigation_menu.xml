@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/SongsItem" android:icon="@drawable/baseline_music_note_24" android:title="Song" />
+    <item android:id="@+id/AlbumItem" android:icon="@drawable/baseline_library_music_24" android:title="Album" />
+    <item android:id="@+id/ArtistItem" android:icon="@drawable/baseline_person_24" android:title="Artist" />
+    <item android:id="@+id/FavoItem" android:icon="@drawable/baseline_stars_24" android:title="Favourite" />
+
+</menu>
