@@ -1,13 +1,13 @@
 package com.memol.musicplayer.Adabters;
 
-import static com.memol.musicplayer.MainActivity.btnPlay_Back;
-import static com.memol.musicplayer.MainActivity.btnPlay_Next;
-import static com.memol.musicplayer.MainActivity.btnPlay_Pause;
-import static com.memol.musicplayer.MainActivity.cardView;
-import static com.memol.musicplayer.MainActivity.imgAlbumeArt;
-import static com.memol.musicplayer.MainActivity.playService;
-import static com.memol.musicplayer.MainActivity.txtArtistName;
-import static com.memol.musicplayer.MainActivity.txtSongName;
+import static com.memol.musicplayer.Main.MainActivity.btnPlay_Back;
+import static com.memol.musicplayer.Main.MainActivity.btnPlay_Next;
+import static com.memol.musicplayer.Main.MainActivity.btnPlay_Pause;
+import static com.memol.musicplayer.Main.MainActivity.cardView;
+import static com.memol.musicplayer.Main.MainActivity.imgAlbumeArt;
+import static com.memol.musicplayer.Main.MainActivity.playService;
+import static com.memol.musicplayer.Main.MainActivity.txtArtistName;
+import static com.memol.musicplayer.Main.MainActivity.txtSongName;
 import static com.memol.musicplayer.PlayService.mediaPlayer;
 
 import android.content.ContentUris;
@@ -20,7 +20,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -28,7 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.memol.musicplayer.GlideApp;
 import com.memol.musicplayer.Model.Song;
-import com.memol.musicplayer.MyThread;
+import com.memol.musicplayer.Main.MyThread;
 import com.memol.musicplayer.R;
 
 import java.util.ArrayList;
@@ -70,12 +69,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder,  int position) {
+
+
         POSITION = position;
+
+
         Song song = songArrayList.get(position);
 
 
         holder.txtMusicName.setText(song.getTitle());
         holder.txtArtistName.setText(song.getArtist());
+
 
 
         new Runnable() {
@@ -178,21 +182,20 @@ btnPlay_Back.setOnClickListener(new View.OnClickListener() {
 
         int PositionBack=(POSITION-=1);
         int PositionSize=(songArrayList.size()-1);
+
         txtSongName.setText(songArrayList.get(PositionBack).getTitle());
         txtArtistName.setText(songArrayList.get(PositionBack).getArtist());
-  if (PositionBack<0){
-      Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
-      Log.i("TagMe", String.valueOf(PositionBack));
-  }else {
+
       String UriNext = songArrayList.get(PositionBack).getPath();
       playService.StartMusic(UriNext);
       cardView.setVisibility(View.VISIBLE);
       btnPlay_Pause.setIconResource(R.drawable.baseline_pause_24);
-      new Runnable() {
+        int finalPositionBack = PositionBack;
+        new Runnable() {
           @Override
           public void run() {
 
-              GlideApp.with(context).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songArrayList.get(PositionBack).getAlbumId()))
+              GlideApp.with(context).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songArrayList.get(finalPositionBack).getAlbumId()))
                       .error(R.drawable.baseline_music_note_24)
                       .placeholder(R.drawable.baseline_music_note_24)
                       .centerCrop()
@@ -200,7 +203,7 @@ btnPlay_Back.setOnClickListener(new View.OnClickListener() {
                       .into(imgAlbumeArt);
           }
       }.run();
-  }
+
 
 
 
@@ -250,6 +253,11 @@ btnPlay_Back.setOnClickListener(new View.OnClickListener() {
         }
     }
 
-
+    private int getPos (int position) {
+        if(position < 0)
+            return songArrayList.size()-1;
+        else
+            return position;
+    }
 
 }

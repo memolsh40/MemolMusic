@@ -45,7 +45,7 @@ public class G extends Application {
                 MediaStore.Audio.Media.TITLE,
                 MediaStore.Audio.Media.DURATION,
                 MediaStore.Audio.Media.DATA,
-                MediaStore.Audio.Media.ARTIST,
+                MediaStore.Audio.Media.ALBUM_ARTIST,
                 MediaStore.Audio.Media.ALBUM_ID
 
         };

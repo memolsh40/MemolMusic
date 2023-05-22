@@ -1,9 +1,9 @@
 package com.memol.musicplayer.Fragments;
 
-import static com.memol.musicplayer.MainActivity.btnPlay_Pause;
-import static com.memol.musicplayer.MainActivity.imgAlbumeArt;
-import static com.memol.musicplayer.MainActivity.txtArtistName;
-import static com.memol.musicplayer.MainActivity.txtSongName;
+import static com.memol.musicplayer.Main.MainActivity.btnPlay_Pause;
+import static com.memol.musicplayer.Main.MainActivity.imgAlbumeArt;
+import static com.memol.musicplayer.Main.MainActivity.txtArtistName;
+import static com.memol.musicplayer.Main.MainActivity.txtSongName;
 import static com.memol.musicplayer.PlayService.mediaPlayer;
 
 import android.annotation.SuppressLint;

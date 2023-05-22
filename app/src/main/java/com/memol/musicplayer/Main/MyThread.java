@@ -1,4 +1,4 @@
-package com.memol.musicplayer;
+package com.memol.musicplayer.Main;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -6,7 +6,9 @@ import android.media.MediaMetadataRetriever;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.memol.musicplayer.GlideApp;
 import com.memol.musicplayer.Model.Song;
+import com.memol.musicplayer.R;
 
 import java.io.IOException;
 

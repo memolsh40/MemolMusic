@@ -6,11 +6,9 @@
     tools:context=".Fragments.AlbumFrag">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="35sp"
-        android:textStyle="bold"
-        android:text="Album" />
+   <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/albumRv"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"/>
 
 </FrameLayout>

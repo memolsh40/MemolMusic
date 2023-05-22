@@ -1,13 +1,19 @@
 package com.memol.musicplayer.Fragments;
 
+import static com.memol.musicplayer.Fragments.SongsFrag.adapter;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.memol.musicplayer.Adabters.AlbumAdabter;
+import com.memol.musicplayer.G;
 import com.memol.musicplayer.R;
 
 /**
@@ -56,11 +62,23 @@ public class AlbumFrag extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    RecyclerView recyclerView;
+    public static  AlbumAdabter albumAdabter;
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_album, container, false);
+         View view =inflater.inflate(R.layout.fragment_album, container, false);
+         recyclerView=view.findViewById(R.id.albumRv);
+        if (!(G.songsList.size()<0)){
+            albumAdabter=new AlbumAdabter(G.songsList,getContext(),R.layout.album_list);
+            recyclerView.setAdapter(albumAdabter);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            adapter.notifyDataSetChanged();
+
+        }
+         return view;
     }
 }

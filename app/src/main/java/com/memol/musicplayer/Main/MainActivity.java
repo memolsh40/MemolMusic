@@ -1,7 +1,4 @@
-package com.memol.musicplayer;
-
-import static com.memol.musicplayer.Fragments.ButtonShitPlay.btnPlayBtnShit;
-import static com.memol.musicplayer.PlayService.mediaPlayer;
+package com.memol.musicplayer.Main;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -39,6 +36,8 @@ import com.memol.musicplayer.Fragments.ButtonShitPlay;
 import com.memol.musicplayer.Fragments.FavouriteFrag;
 import com.memol.musicplayer.Fragments.SongsFrag;
 import com.memol.musicplayer.Model.TabItems;
+import com.memol.musicplayer.PlayService;
+import com.memol.musicplayer.R;
 
 @SuppressWarnings("deprecation")
 public class MainActivity extends AppCompatActivity {
@@ -59,7 +58,11 @@ public class MainActivity extends AppCompatActivity {
    public static android.os.Handler MainHandler=new Handler();
     ButtonShitPlay buttonShitPlay;
 
-  public static   PlayService playService;
+  public static PlayService playService;
+  ViewPagerAdabter adabter;
+
+
+
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,17 +75,17 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("MemolMusic");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         cardView.setVisibility(View.INVISIBLE);
-        if (CheckPermission()==false){
-            requestPermissions();
-        }
 
-        ViewPagerAdabter adabter=new ViewPagerAdabter(MainActivity.this,getSupportFragmentManager());
+
+        adabter=new ViewPagerAdabter(MainActivity.this,getSupportFragmentManager());
         adabter.getFragment(new TabItems(new SongsFrag(),"Tracks",getResources().getDrawable(R.drawable.baseline_music_note_24)));
         adabter.getFragment(new TabItems(new AlbumFrag(),"Albums",getResources().getDrawable(R.drawable.baseline_library_music_24)));
         adabter.getFragment(new TabItems(new ArtistFrag(),"Artists",getResources().getDrawable(R.drawable.baseline_person_24)));
         adabter.getFragment(new TabItems(new FavouriteFrag(),"Favourites",getResources().getDrawable(R.drawable.baseline_stars_24)));
         viewPager.setAdapter(adabter);
         tabLayout.setupWithViewPager(viewPager);
+
+
 
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,11 +131,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-//        switch (item.getItemId()){
-//            case R.id.search:
-//                Toast.makeText(this, "Image btn", Toast.LENGTH_SHORT).show();
-//                break;
-//        }
+        if (item.getItemId()==R.id.SearchMenu){
+             adabter.notifyDataSetChanged();
+
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -144,6 +146,10 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         Intent intent=new Intent(MainActivity.this,PlayService.class);
         bindService(intent,serviceConnection,BIND_AUTO_CREATE);
+        if (CheckPermission()==false){
+            requestPermissions();
+            adabter.notifyDataSetChanged();
+        }
     }
     ServiceConnection serviceConnection=new ServiceConnection() {
         @Override
