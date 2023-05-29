@@ -73,12 +73,24 @@ public class PlayService extends Service {
 
     }
     public void StartMusic(String path){
-  if (mediaPlayer!=null){
-      mediaPlayer.reset();
-  }
-        mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(path));
-        mediaPlayer.start();
 
+  if (mediaPlayer!=null){
+      mediaPlayer.stop();
+      mediaPlayer.release();
+      mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(path));
+      mediaPlayer.start();
+  }else {
+      mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(path));
+      mediaPlayer.start();
+  }
+    }
+    public void StartWhenStop(String path){
+
+  if (!mediaPlayer.isPlaying()){
+      mediaPlayer.stop();
+      mediaPlayer.release();
+      mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(path));
+  }
     }
     public void PauseMusic(){
   if (mediaPlayer!=null){

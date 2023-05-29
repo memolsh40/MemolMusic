@@ -2,6 +2,7 @@ package com.memol.musicplayer.Fragments;
 
 
 import static com.memol.musicplayer.Main.MainActivity.MainHandler;
+import static com.memol.musicplayer.Main.MainActivity.songs;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.memol.musicplayer.Adabters.RecyclerAdapter;
-import com.memol.musicplayer.G;
 import com.memol.musicplayer.R;
 
 /**
@@ -73,12 +73,11 @@ public class SongsFrag extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.rvSongs);
         recyclerView.setHasFixedSize(true);
 
-                if (!(G.songsList.size()<0)){
-                    adapter=new RecyclerAdapter(getContext(),G.songsList,MainHandler);
+                if (!(songs.size()<0)){
+                    adapter=new RecyclerAdapter(getContext(),songs,MainHandler);
                     recyclerView.setAdapter(adapter);
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
                     adapter.notifyDataSetChanged();
 
                 }

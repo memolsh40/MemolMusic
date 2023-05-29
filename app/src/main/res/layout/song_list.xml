@@ -30,7 +30,6 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:cardElevation="10dp"
-                android:elevation="20dp"
                 android:layout_margin="8dp"
                 app:cardCornerRadius="33dp"
                 android:clickable="true"

@@ -1,20 +1,10 @@
 package com.memol.musicplayer.Adabters;
 
-import static com.memol.musicplayer.Main.MainActivity.btnPlay_Back;
-import static com.memol.musicplayer.Main.MainActivity.btnPlay_Next;
-import static com.memol.musicplayer.Main.MainActivity.btnPlay_Pause;
-import static com.memol.musicplayer.Main.MainActivity.cardView;
-import static com.memol.musicplayer.Main.MainActivity.imgAlbumeArt;
-import static com.memol.musicplayer.Main.MainActivity.playService;
-import static com.memol.musicplayer.Main.MainActivity.txtArtistName;
-import static com.memol.musicplayer.Main.MainActivity.txtSongName;
-import static com.memol.musicplayer.PlayService.mediaPlayer;
-
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +16,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.memol.musicplayer.GlideApp;
-import com.memol.musicplayer.Model.Song;
 import com.memol.musicplayer.Main.MyThread;
+import com.memol.musicplayer.Main.PlayActivity;
+import com.memol.musicplayer.Model.Song;
 import com.memol.musicplayer.R;
 
 import java.util.ArrayList;
@@ -102,121 +93,110 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
 
 
-String url=song.getPath();
+Uri url= Uri.parse(song.getPath());
 
 
 holder.cardView.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
 
-        playService.StartMusic(url);
-        cardView.setVisibility(View.VISIBLE);
-        btnPlay_Pause.setIconResource(R.drawable.baseline_pause_24);
-     POSITION=position;
-        txtSongName.setText(song.getTitle());
-        txtArtistName.setText(song.getArtist());
-        new Runnable() {
-            @Override
-            public void run() {
-
-                GlideApp.with(context).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songArrayList.get(POSITION).getAlbumId()))
-                        .error(R.drawable.music_image)
-                        .placeholder(R.drawable.music_image)
-                        .centerCrop()
-                        .fallback(R.drawable.music_image)
-                        .into(imgAlbumeArt);
-            }
-        }.run();
+        Intent intent =new Intent(context,PlayActivity.class);
+        intent.putExtra("position",position);
+        context.startActivity(intent);
 
     }
 });
-btnPlay_Pause.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        if(mediaPlayer.isPlaying()){
-            mediaPlayer.pause();
-            btnPlay_Pause.setIconResource(R.drawable._8px);
-        } else {
-            mediaPlayer.start();
-            btnPlay_Pause.setIconResource(R.drawable.baseline_pause_24);
-        }
-
-
-
-    }
-
-});
-btnPlay_Next.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-
-        int PositinNext=POSITION+=1;
-        Log.i("MyTagNext", String.valueOf(PositinNext));
-       String UriNext=songArrayList.get(PositinNext).getPath();
-        Log.i("MyTagNext", UriNext);
-        playService.StartMusic(UriNext);
-        cardView.setVisibility(View.VISIBLE);
-        btnPlay_Pause.setIconResource(R.drawable.baseline_pause_24);
-        txtSongName.setText(songArrayList.get(PositinNext).getTitle());
-        txtArtistName.setText(songArrayList.get(PositinNext).getArtist());
-        new Runnable() {
-            @Override
-            public void run() {
-
-                GlideApp.with(context).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songArrayList.get(PositinNext).getAlbumId()))
-                        .error(R.drawable.baseline_music_note_24)
-                        .placeholder(R.drawable.baseline_music_note_24)
-                        .centerCrop()
-                        .fallback(R.drawable.ic_launcher_foreground)
-                        .into(imgAlbumeArt);
-            }
-        }.run();
-
-    }
-
-});
-btnPlay_Back.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-
-
-        int PositionBack=(POSITION-=1);
-        int PositionSize=(songArrayList.size()-1);
-
-        txtSongName.setText(songArrayList.get(PositionBack).getTitle());
-        txtArtistName.setText(songArrayList.get(PositionBack).getArtist());
-
-      String UriNext = songArrayList.get(PositionBack).getPath();
-      playService.StartMusic(UriNext);
-      cardView.setVisibility(View.VISIBLE);
-      btnPlay_Pause.setIconResource(R.drawable.baseline_pause_24);
-        int finalPositionBack = PositionBack;
-        new Runnable() {
-          @Override
-          public void run() {
-
-              GlideApp.with(context).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songArrayList.get(finalPositionBack).getAlbumId()))
-                      .error(R.drawable.baseline_music_note_24)
-                      .placeholder(R.drawable.baseline_music_note_24)
-                      .centerCrop()
-                      .fallback(R.drawable.ic_launcher_foreground)
-                      .into(imgAlbumeArt);
-          }
-      }.run();
 
 
 
 
 
-
-
-
-
-
-
-    }
-
-});
+//btnPlay_Pause.setOnClickListener(new View.OnClickListener() {
+//    @Override
+//    public void onClick(View v) {
+//        if(mediaPlayer.isPlaying()){
+//            mediaPlayer.pause();
+//            btnPlay_Pause.setIconResource(R.drawable._8px);
+//        } else {
+//            mediaPlayer.start();
+//            btnPlay_Pause.setIconResource(R.drawable.baseline_pause_24);
+//        }
+//
+//
+//
+//    }
+//
+//});
+//btnPlay_Next.setOnClickListener(new View.OnClickListener() {
+//    @Override
+//    public void onClick(View v) {
+//
+//        int PositinNext=POSITION+=1;
+//        Log.i("MyTagNext", String.valueOf(PositinNext));
+//       Uri UriNext=songArrayList.get(PositinNext).getPath();
+//        playService.StartMusic(UriNext);
+//        cardView.setVisibility(View.VISIBLE);
+//        btnPlay_Pause.setIconResource(R.drawable.baseline_pause_24);
+//        txtSongName.setText(songArrayList.get(PositinNext).getTitle());
+//        txtArtistName.setText(songArrayList.get(PositinNext).getArtist());
+//        new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                GlideApp.with(context).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songArrayList.get(PositinNext).getAlbumId()))
+//                        .error(R.drawable.baseline_music_note_24)
+//                        .placeholder(R.drawable.baseline_music_note_24)
+//                        .centerCrop()
+//                        .fallback(R.drawable.ic_launcher_foreground)
+//                        .into(imgAlbumeArt);
+//            }
+//        }.run();
+//
+//    }
+//
+//});
+//btnPlay_Back.setOnClickListener(new View.OnClickListener() {
+//    @Override
+//    public void onClick(View v) {
+//
+//
+//        int PositionBack=(POSITION-=1);
+//        int PositionSize=(songArrayList.size()-1);
+//
+//        txtSongName.setText(songArrayList.get(PositionBack).getTitle());
+//        txtArtistName.setText(songArrayList.get(PositionBack).getArtist());
+//
+//      String UriNext = songArrayList.get(PositionBack).getPath();
+//      playService.StartMusic(UriNext);
+//      cardView.setVisibility(View.VISIBLE);
+//      btnPlay_Pause.setIconResource(R.drawable.baseline_pause_24);
+//        int finalPositionBack = PositionBack;
+//        new Runnable() {
+//          @Override
+//          public void run() {
+//
+//              GlideApp.with(context).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songArrayList.get(finalPositionBack).getAlbumId()))
+//                      .error(R.drawable.baseline_music_note_24)
+//                      .placeholder(R.drawable.baseline_music_note_24)
+//                      .centerCrop()
+//                      .fallback(R.drawable.ic_launcher_foreground)
+//                      .into(imgAlbumeArt);
+//          }
+//      }.run();
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//    }
+//
+//});
 
 
 
@@ -247,10 +227,8 @@ btnPlay_Back.setOnClickListener(new View.OnClickListener() {
             imageView= itemView.findViewById(R.id.imageListFrag);
             cardView=itemView.findViewById(R.id.cardViewList);
 
-
-
-
         }
+
     }
 
     private int getPos (int position) {

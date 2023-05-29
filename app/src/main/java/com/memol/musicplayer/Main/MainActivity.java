@@ -3,6 +3,7 @@ package com.memol.musicplayer.Main;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
@@ -17,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -32,12 +32,15 @@ import com.google.android.material.tabs.TabLayout;
 import com.memol.musicplayer.Adabters.ViewPagerAdabter;
 import com.memol.musicplayer.Fragments.AlbumFrag;
 import com.memol.musicplayer.Fragments.ArtistFrag;
-import com.memol.musicplayer.Fragments.ButtonShitPlay;
 import com.memol.musicplayer.Fragments.FavouriteFrag;
 import com.memol.musicplayer.Fragments.SongsFrag;
+import com.memol.musicplayer.G;
+import com.memol.musicplayer.Model.Song;
 import com.memol.musicplayer.Model.TabItems;
 import com.memol.musicplayer.PlayService;
 import com.memol.musicplayer.R;
+
+import java.util.ArrayList;
 
 @SuppressWarnings("deprecation")
 public class MainActivity extends AppCompatActivity {
@@ -48,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     MaterialButton btnSearch;
     SearchBar searchBar;
-  public static   CardView cardView;
+  public static   CardView mainCardView;
    public static MaterialButton btnPlay_Back;
    public static MaterialButton btnPlay_Pause;
    public static MaterialButton btnPlay_Next;
@@ -56,10 +59,12 @@ public class MainActivity extends AppCompatActivity {
    public static TextView txtArtistName;
    public static ImageView imgAlbumeArt;
    public static android.os.Handler MainHandler=new Handler();
-    ButtonShitPlay buttonShitPlay;
+
 
   public static PlayService playService;
   ViewPagerAdabter adabter;
+  public static ArrayList<Song> songs;
+  public static final int REQUEST_CODE=1;
 
 
 
@@ -71,10 +76,13 @@ public class MainActivity extends AppCompatActivity {
         SetupView();
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.baseline_search_24);
-        buttonShitPlay=new ButtonShitPlay();
         getSupportActionBar().setTitle("MemolMusic");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        cardView.setVisibility(View.INVISIBLE);
+        mainCardView.setVisibility(View.INVISIBLE);
+        if (CheckPermission()==false){
+            requestPermissions();
+        }
+
 
 
         adabter=new ViewPagerAdabter(MainActivity.this,getSupportFragmentManager());
@@ -87,15 +95,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                buttonShitPlay.show(getSupportFragmentManager(),buttonShitPlay.getTag());
+    }
 
-
-            }
-        });
+    public static void FillSongs(Context context){
+        songs= G.SongList(context);
     }
 
     private boolean CheckPermission() {
@@ -106,19 +110,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     void requestPermissions(){
-        if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,Manifest.permission.READ_MEDIA_AUDIO)){
-            Toast.makeText(this, "Granted", Toast.LENGTH_SHORT).show();
-        }else {
-            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.READ_MEDIA_AUDIO},2);
+
+        while (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_MEDIA_AUDIO) !=PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.READ_MEDIA_AUDIO},2);
         }
+        FillSongs(MainActivity.this);
+
     }
-    void requestPermissionsFile(){
-        if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)){
-            Toast.makeText(this, "Granted", Toast.LENGTH_SHORT).show();
-        }else {
-            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},3);
-        }
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -146,10 +145,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         Intent intent=new Intent(MainActivity.this,PlayService.class);
         bindService(intent,serviceConnection,BIND_AUTO_CREATE);
-        if (CheckPermission()==false){
-            requestPermissions();
-            adabter.notifyDataSetChanged();
-        }
+
     }
     ServiceConnection serviceConnection=new ServiceConnection() {
         @Override
@@ -170,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
        tabLayout=findViewById(R.id.tabbar);
        viewPager=findViewById(R.id.fragContainer);
        btnSearch=findViewById(R.id.btnSearchIcon);
-       cardView=findViewById(R.id.playCardView);
+        mainCardView=findViewById(R.id.playCardView);
        btnPlay_Pause=findViewById(R.id.btnPlay);
        btnPlay_Next=findViewById(R.id.btnNext);
        btnPlay_Back=findViewById(R.id.btnBack);

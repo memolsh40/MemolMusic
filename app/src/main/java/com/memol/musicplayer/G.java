@@ -3,6 +3,7 @@ package com.memol.musicplayer;
 import android.app.Application;
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -31,22 +32,23 @@ public class G extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        songsList =SongList();
 
     }
-    public ArrayList<Song> SongList() {
+
+    public static ArrayList<Song> SongList(Context context) {
         ArrayList<Song> songArrayList =new ArrayList<>();
         String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
         String sortOrder = MediaStore.Audio.Media.TITLE + " ASC";
 
-        ContentResolver cr = getApplicationContext().getContentResolver();
+        ContentResolver cr = context.getContentResolver();
         String[] projection = {
-                MediaStore.Audio.Media.ALBUM,
+                MediaStore.Audio.Albums.ALBUM,
                 MediaStore.Audio.Media.TITLE,
                 MediaStore.Audio.Media.DURATION,
                 MediaStore.Audio.Media.DATA,
-                MediaStore.Audio.Media.ALBUM_ARTIST,
-                MediaStore.Audio.Media.ALBUM_ID
+                MediaStore.Audio.Media.ARTIST,
+                MediaStore.Audio.Media.ALBUM_ID,
+                MediaStore.Audio.Media.ALBUM_ARTIST
 
         };
 
@@ -80,6 +82,7 @@ public class G extends Application {
         cur.close();
         return songArrayList;
     }
+
     public ArrayList<Music> GetSongs(){
         ArrayList<Music> songs=new ArrayList<>();
         Uri mediaStoreUri;
