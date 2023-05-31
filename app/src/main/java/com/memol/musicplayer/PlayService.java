@@ -18,6 +18,7 @@ public class PlayService extends Service {
 
   public static MediaPlayer mediaPlayer;
     String path;
+    private int position;
     IBinder binder=new MyBinder();
     public PlayService() {
     }
@@ -72,6 +73,15 @@ public class PlayService extends Service {
         }
 
     }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
     public void StartMusic(String path){
 
   if (mediaPlayer!=null){
