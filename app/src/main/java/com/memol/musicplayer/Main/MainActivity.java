@@ -1,17 +1,23 @@
 package com.memol.musicplayer.Main;
 
+import static com.memol.musicplayer.PlayService.mediaPlayer;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,10 +37,9 @@ import com.google.android.material.search.SearchBar;
 import com.google.android.material.tabs.TabLayout;
 import com.memol.musicplayer.Adabters.ViewPagerAdabter;
 import com.memol.musicplayer.Fragments.AlbumFrag;
-import com.memol.musicplayer.Fragments.ArtistFrag;
-import com.memol.musicplayer.Fragments.FavouriteFrag;
 import com.memol.musicplayer.Fragments.SongsFrag;
 import com.memol.musicplayer.G;
+import com.memol.musicplayer.GlideApp;
 import com.memol.musicplayer.Model.Song;
 import com.memol.musicplayer.Model.TabItems;
 import com.memol.musicplayer.PlayService;
@@ -59,12 +64,13 @@ public class MainActivity extends AppCompatActivity {
    public static TextView txtArtistName;
    public static ImageView imgAlbumeArt;
    public static android.os.Handler MainHandler=new Handler();
-
+    public static boolean shuffleBoolean =false,repeatBoolean=false;
 
   public static PlayService playService;
   ViewPagerAdabter adabter;
   public static ArrayList<Song> songs;
-  public static final int REQUEST_CODE=1;
+  String uri;
+  int position;
 
 
 
@@ -79,17 +85,140 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("MemolMusic");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mainCardView.setVisibility(View.INVISIBLE);
+
         if (CheckPermission()==false){
             requestPermissions();
+            if (!Environment.isExternalStorageManager()){
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                Uri uri = Uri.fromParts("package",this.getPackageName(),null);
+                intent.setData(uri);
+                startActivity(intent);
+            }
         }
+
+        btnPlay_Pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mediaPlayer.isPlaying()){
+                    mediaPlayer.pause();
+                    btnPlay_Pause.setIconResource(R.drawable._8px);
+
+                }else {
+                    btnPlay_Pause.setIconResource(R.drawable.baseline_pause_24);
+                    mediaPlayer.start();
+
+                }
+            }
+        });
+        btnPlay_Next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                position=playService.getPosition();
+                if (mediaPlayer.isPlaying()){
+                    position=((position+1)%songs.size());
+                    playService.setPosition(position);
+                    uri=songs.get(position).getPath();
+                    playService.StartMusic(uri);
+                    btnPlay_Pause.setIconResource(R.drawable.baseline_pause_24);
+                    txtSongName.setText(songs.get(position).getTitle());
+                    txtArtistName.setText(songs.get(position).getArtist());
+
+                    new Runnable() {
+                        @Override
+                        public void run() {
+
+                            GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
+                                    .error(R.drawable.music_image)
+                                    .placeholder(R.drawable.music_image)
+                                    .centerCrop()
+                                    .fallback(R.drawable.music_image)
+                                    .into(imgAlbumeArt);
+                        }
+                    }.run();
+
+                }else {
+                    position=((position+1)%songs.size());
+                    uri=songs.get(position).getPath();
+                    playService.setPosition(position);
+                    playService.StartWhenStop(uri);
+                    btnPlay_Pause.setIconResource(R.drawable._8px);
+                    txtSongName.setText(songs.get(position).getTitle());
+                    txtArtistName.setText(songs.get(position).getArtist());
+                    new Runnable() {
+                        @Override
+                        public void run() {
+
+                            GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
+                                    .error(R.drawable.music_image)
+                                    .placeholder(R.drawable.music_image)
+                                    .centerCrop()
+                                    .fallback(R.drawable.music_image)
+                                    .into(imgAlbumeArt);
+
+                        }
+                    }.run();
+
+                }
+            }
+        });
+        btnPlay_Back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                position=playService.getPosition();
+                if (mediaPlayer.isPlaying()){
+                    position=((position-1)<0 ? (songs.size()-1):(position-1));
+                    playService.setPosition(position);
+                    uri=songs.get(position).getPath();
+                    playService.StartMusic(uri);
+                    btnPlay_Pause.setIconResource(R.drawable.baseline_pause_24);
+                    txtSongName.setText(songs.get(position).getTitle());
+                    txtArtistName.setText(songs.get(position).getArtist());
+                    new Runnable() {
+                        @Override
+                        public void run() {
+
+                            GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
+                                    .error(R.drawable.music_image)
+                                    .placeholder(R.drawable.music_image)
+                                    .centerCrop()
+                                    .fallback(R.drawable.music_image)
+                                    .into(imgAlbumeArt);
+                        }
+                    }.run();
+
+                }else {
+                    position=((position-1)<0 ? (songs.size()-1):(position-1));
+                    playService.setPosition(position);
+                    uri=songs.get(position).getPath();
+                    playService.StartWhenStop(uri);
+                    btnPlay_Pause.setIconResource(R.drawable._8px);
+                    txtSongName.setText(songs.get(position).getTitle());
+                    txtArtistName.setText(songs.get(position).getArtist());
+                    new Runnable() {
+                        @Override
+                        public void run() {
+
+                            GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
+                                    .error(R.drawable.music_image)
+                                    .placeholder(R.drawable.music_image)
+                                    .centerCrop()
+                                    .fallback(R.drawable.music_image)
+                                    .into(imgAlbumeArt);
+                        }
+                    }.run();
+
+                }
+            }
+        });
 
 
 
         adabter=new ViewPagerAdabter(MainActivity.this,getSupportFragmentManager());
         adabter.getFragment(new TabItems(new SongsFrag(),"Tracks",getResources().getDrawable(R.drawable.baseline_music_note_24)));
         adabter.getFragment(new TabItems(new AlbumFrag(),"Albums",getResources().getDrawable(R.drawable.baseline_library_music_24)));
-        adabter.getFragment(new TabItems(new ArtistFrag(),"Artists",getResources().getDrawable(R.drawable.baseline_person_24)));
-        adabter.getFragment(new TabItems(new FavouriteFrag(),"Favourites",getResources().getDrawable(R.drawable.baseline_stars_24)));
+//        adabter.getFragment(new TabItems(new ArtistFrag(),"Artists",getResources().getDrawable(R.drawable.baseline_person_24)));
+//        adabter.getFragment(new TabItems(new FavouriteFrag(),"Favourites",getResources().getDrawable(R.drawable.baseline_stars_24)));
         viewPager.setAdapter(adabter);
         tabLayout.setupWithViewPager(viewPager);
 

@@ -12,7 +12,7 @@
         android:layout_gravity="bottom"
         android:id="@+id/playCardView"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="60dp"
         app:cardElevation="10dp"
         android:elevation="20dp"
         android:layout_margin="6dp"

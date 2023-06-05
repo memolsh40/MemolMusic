@@ -6,7 +6,6 @@ public class Song {
     private String duration;
     private String path;
     private String artist;
-
     private long albumId;
     private String id;
 
@@ -77,8 +76,6 @@ public class Song {
     public void setArtist(String artist) {
         this.artist = artist;
     }
-
-
 
 
     public Song() {

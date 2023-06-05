@@ -15,6 +15,8 @@
         android:layout_height="65dp"
         android:layout_margin="6dp"
         android:layout_marginTop="10dp"
+        app:strokeWidth="0dp"
+        app:cardElevation="1dp"
           android:clickable="true"
         android:checkable="true"
 
@@ -31,8 +33,9 @@
                 android:layout_height="50dp"
                 app:cardElevation="10dp"
                 android:layout_margin="8dp"
-                app:cardCornerRadius="33dp"
+                app:cardCornerRadius="12dp"
                 android:clickable="true"
+                app:strokeWidth="0dp"
                 android:checkable="true"
                 tools:ignore="MissingConstraints">
                 <ImageView
