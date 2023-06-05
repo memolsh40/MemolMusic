@@ -6,8 +6,27 @@ public class Song {
     private String duration;
     private String path;
     private String artist;
-    private int position;
+
     private long albumId;
+    private String id;
+
+    public Song(String album, String title, String duration, String path, String artist, long albumId, String id) {
+        this.album = album;
+        this.title = title;
+        this.duration = duration;
+        this.path = path;
+        this.artist = artist;
+        this.albumId = albumId;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public long getAlbumId() {
         return albumId;
@@ -17,14 +36,7 @@ public class Song {
         this.albumId = albumId;
     }
 
-    public Song(String album, String title, String duration, String path, String artist, long albumId) {
-        this.album = album;
-        this.title = title;
-        this.duration = duration;
-        this.path = path;
-        this.artist = artist;
-        this.albumId = albumId;
-    }
+
 
     public String getAlbum() {
         return album;
@@ -66,34 +78,15 @@ public class Song {
         this.artist = artist;
     }
 
-    public int getPosition() {
-        return position;
-    }
 
-    public void setPosition(int position) {
-        this.position = position;
-    }
+
 
     public Song() {
     }
 
-    public Song(String album, String title, String duration, String path, String artist) {
-        this.album = album;
-        this.title = title;
-        this.duration = duration;
-        this.path = path;
-        this.artist = artist;
-    }
 
-    public Song(String album, String title, String duration, String path, String artist, int position) {
-        this.album = album;
-        this.title = title;
-        this.duration = duration;
-        this.path = path;
-        this.artist = artist;
-        this.position = position;
-    }
-//    private Uri albumArt;
+
+
 
 
 }

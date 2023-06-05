@@ -42,13 +42,13 @@ public class G extends Application {
 
         ContentResolver cr = context.getContentResolver();
         String[] projection = {
-                MediaStore.Audio.Albums.ALBUM,
+                MediaStore.Audio.Artists.Albums.ALBUM,
                 MediaStore.Audio.Media.TITLE,
                 MediaStore.Audio.Media.DURATION,
                 MediaStore.Audio.Media.DATA,
                 MediaStore.Audio.Media.ARTIST,
                 MediaStore.Audio.Media.ALBUM_ID,
-                MediaStore.Audio.Media.ALBUM_ARTIST
+                MediaStore.Audio.Media._ID
 
         };
 
@@ -66,12 +66,13 @@ public class G extends Application {
             String path=cur.getString(3);
             String artist=cur.getString(4);
             long albumId=cur.getLong(5);
+            String id=cur.getString(6);
 
             //Uri albumArtworkUri = ContentUris.withAppendedId(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,albumId);
 
 
 
-            Song song=new Song(album,title,duration,path,artist,albumId);
+            Song song=new Song(album,title,duration,path,artist,albumId,id);
 
             songArrayList.add(song);
 
