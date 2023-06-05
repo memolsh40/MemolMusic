@@ -28,7 +28,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.memol.musicplayer.GlideApp;
-import com.memol.musicplayer.Main.MyThread;
 import com.memol.musicplayer.Main.PlayActivity;
 import com.memol.musicplayer.Model.Song;
 import com.memol.musicplayer.R;
@@ -44,7 +43,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     public static int POSITION;
     Bitmap bitmap;
     android.os.Handler handler;
-    MyThread thread;
+
 
 
 

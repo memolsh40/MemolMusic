@@ -23,11 +23,14 @@
         tools:ignore="ObsoleteSdkInt"
         tools:targetApi="33">
         <activity
+            android:name=".Model.InfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".Main.PlayActivity"
             android:exported="false" />
 
         <service
-            android:name=".PlayService"
+            android:name=".Main.PlayService"
             android:enabled="true"
             android:exported="false" />
 

@@ -1,4 +1,4 @@
-package com.memol.musicplayer;
+package com.memol.musicplayer.Main;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -11,6 +11,8 @@ import android.os.Binder;
 import android.os.IBinder;
 
 import androidx.core.app.NotificationCompat;
+
+import com.memol.musicplayer.R;
 
 @SuppressWarnings("ALL")
 public class PlayService extends Service {

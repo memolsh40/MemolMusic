@@ -7,7 +7,7 @@ import static com.memol.musicplayer.Main.MainActivity.repeatBoolean;
 import static com.memol.musicplayer.Main.MainActivity.shuffleBoolean;
 import static com.memol.musicplayer.Main.MainActivity.txtArtistName;
 import static com.memol.musicplayer.Main.MainActivity.txtSongName;
-import static com.memol.musicplayer.PlayService.mediaPlayer;
+import static com.memol.musicplayer.Main.PlayService.mediaPlayer;
 
 import android.annotation.SuppressLint;
 import android.content.ContentUris;

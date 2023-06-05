@@ -1,6 +1,6 @@
 package com.memol.musicplayer.Main;
 
-import static com.memol.musicplayer.PlayService.mediaPlayer;
+import static com.memol.musicplayer.Main.PlayService.mediaPlayer;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -40,9 +40,9 @@ import com.memol.musicplayer.Fragments.AlbumFrag;
 import com.memol.musicplayer.Fragments.SongsFrag;
 import com.memol.musicplayer.G;
 import com.memol.musicplayer.GlideApp;
+import com.memol.musicplayer.Model.InfoActivity;
 import com.memol.musicplayer.Model.Song;
 import com.memol.musicplayer.Model.TabItems;
-import com.memol.musicplayer.PlayService;
 import com.memol.musicplayer.R;
 
 import java.util.ArrayList;
@@ -81,9 +81,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         SetupView();
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.baseline_search_24);
         getSupportActionBar().setTitle("MemolMusic");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mainCardView.setVisibility(View.INVISIBLE);
 
         if (CheckPermission()==false){
@@ -259,9 +257,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId()==R.id.SearchMenu){
-             adabter.notifyDataSetChanged();
-
+        if (item.getItemId()==R.id.exit){
+             finish();
+        }
+        if (item.getItemId()==R.id.info){
+             Intent intent=new Intent(MainActivity.this, InfoActivity.class);
+             startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
