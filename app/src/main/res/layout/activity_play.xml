@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Main.PlayActivity"
+    android:id="@+id/play_activity"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/layout_top_btn"
+        android:layout_width="match_parent"
+        android:background="@drawable/gradient_bg"
+        android:layout_alignParentRight="true"
+        android:layout_height="50dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBackPg"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            style="?attr/materialIconButtonStyle"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            app:iconSize="22dp"
+            app:iconGravity="textStart"
+            app:icon="@drawable/baseline_arrow_back_24"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+
+
+        <TextView
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="150dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="Now Playing"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/playCardView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@id/layout_top_btn"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/imageViewbtnShit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_launcher_background" />
+        <ImageView
+            android:id="@+id/imageGrd"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:src="@drawable/gradient_bg"
+            android:layout_alignParentBottom="true"
+            tools:ignore="DuplicateIds" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtMusicNameBtnShit"
+        android:layout_width="300dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="5dp"
+        android:text="Music Name"
+        android:singleLine="true"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:gravity="center"
+        tools:ignore="NotSibling" />
+
+    <TextView
+        android:id="@+id/txtMusicArtistBtnShit"
+        android:layout_width="300dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:ellipsize="end"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:text="Music Name"
+        android:textSize="15dp"
+        tools:ignore="NotSibling,TextSizeCheck" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp">
+
+        <TextView
+            android:id="@+id/txtTime"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:text="00:00"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="32dp"/>
+
+        <TextView
+            android:id="@+id/txtCompletTime"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="347dp"
+            android:layout_marginTop="10dp"
+            android:text="00:00" />
+
+        <SeekBar
+            android:id="@+id/SeekbarbtnShit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnShuffle"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            style="?attr/materialIconButtonStyle"
+            android:layout_marginStart="0dp"
+            android:gravity="center"
+            app:iconSize="28dp"
+            app:iconGravity="textStart"
+            app:icon="@drawable/baseline_shuffle_24"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBackbtnShit"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            style="?attr/materialIconButtonStyle"
+            android:layout_marginStart="0dp"
+            android:gravity="center"
+            app:iconSize="28dp"
+            app:iconGravity="textStart"
+            app:icon="@drawable/back"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPlaybtnShit"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            style="?attr/materialIconButtonStyle"
+            android:gravity="center"
+            app:iconSize="28dp"
+            app:iconGravity="textStart"
+            app:icon="@drawable/baseline_pause_24"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNextbtnShit"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            style="?attr/materialIconButtonStyle"
+            android:gravity="center"
+            app:iconGravity="textStart"
+            app:iconSize="28dp"
+            app:icon="@drawable/skipnest"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnReply"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            style="?attr/materialIconButtonStyle"
+            android:layout_marginRight="0dp"
+            android:gravity="center"
+            app:iconSize="28dp"
+            app:iconGravity="textStart"
+            app:icon="@drawable/baseline_replay_24"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+
+    </LinearLayout>
+</LinearLayout>

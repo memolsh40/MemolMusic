@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="175dp"
+    android:layout_height="205dp"
+    android:layout_margin="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/CardView"
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        android:background="@null"
+        android:clickable="true"
+        android:checkable="true"
+        android:padding="10dp"
+        app:cardCornerRadius="35dp"
+        tools:ignore="InvalidId,SpeakableTextPresentCheck">
+
+        <ImageView
+            android:id="@+id/AlbumImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/music_image" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/txtAlbum"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/CardView"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="-1dp"
+        android:layout_marginBottom="1dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="Album"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        tools:ignore="TextSizeCheck" />
+
+</RelativeLayout>
