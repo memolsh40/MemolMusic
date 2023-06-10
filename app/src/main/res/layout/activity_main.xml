@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/MainActivityID"
     tools:context=".Main.MainActivity">
 
 
@@ -20,6 +21,7 @@
         app:cardCornerRadius="33dp"
         android:clickable="true"
         android:checkable="true"
+        app:strokeColor="?attr/colorPrimary"
         tools:ignore="MissingConstraints">
 
         <RelativeLayout
@@ -179,6 +181,7 @@
         tools:ignore="SpeakableTextPresentCheck">
 
     </androidx.viewpager.widget.ViewPager>
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

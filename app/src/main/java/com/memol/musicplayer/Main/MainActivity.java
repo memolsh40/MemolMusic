@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
   public static PlayService playService;
   ViewPagerAdabter adabter;
   public static ArrayList<Song> songs;
+
+
   String uri;
   int position;
 
@@ -83,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("MemolMusic");
         mainCardView.setVisibility(View.INVISIBLE);
+
 
         if (CheckPermission()==false){
             requestPermissions();
@@ -223,6 +226,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+
+    public static void setSongs(ArrayList<Song> songs) {
+        MainActivity.songs = songs;
     }
 
     public static void FillSongs(Context context){

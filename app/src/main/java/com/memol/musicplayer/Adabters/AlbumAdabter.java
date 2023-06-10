@@ -3,7 +3,9 @@ package com.memol.musicplayer.Adabters;
 import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.memol.musicplayer.AlbumDetails;
 import com.memol.musicplayer.GlideApp;
 import com.memol.musicplayer.Model.Song;
 import com.memol.musicplayer.R;
@@ -20,8 +24,8 @@ import com.memol.musicplayer.R;
 import java.util.ArrayList;
 
 public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> {
-    private ArrayList<Song> songArrayList;
-    private Context context;
+    private final ArrayList<Song> songArrayList;
+    private final Context context;
     private int recource;
 
     public AlbumAdabter(ArrayList<Song> songArrayList, Context context, int recource) {
@@ -41,6 +45,7 @@ public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> 
     public void onBindViewHolder(@NonNull AlbumAdabter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Song song=songArrayList.get(position);
         holder.txtAlbum.setText(song.getAlbum());
+        Log.i("AlbumeList",song.getAlbum());
         new Runnable() {
             @Override
             public void run() {
@@ -53,6 +58,14 @@ public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> 
                         .into(holder.imgAlbum);
             }
         }.run();
+        holder.albumeCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(context, AlbumDetails.class);
+                intent.putExtra("albumName",songArrayList.get(position).getAlbum());
+                context.startActivity(intent);
+            }
+        });
 
     }
 
@@ -64,10 +77,13 @@ public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgAlbum;
         TextView txtAlbum;
+
+        CardView albumeCardView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgAlbum=itemView.findViewById(R.id.AlbumImage);
             txtAlbum=itemView.findViewById(R.id.txtAlbum);
+            albumeCardView=itemView.findViewById(R.id.AlbumeListCardView);
         }
     }
 }

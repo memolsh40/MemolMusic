@@ -2,32 +2,21 @@ package com.memol.musicplayer;
 
 import android.app.Application;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
-import android.os.Build;
 import android.provider.MediaStore;
 import android.widget.ImageView;
 
-import com.memol.musicplayer.Model.Music;
 import com.memol.musicplayer.Model.Song;
 
 import java.util.ArrayList;
 
 public class G extends Application {
-    public static ArrayList<Song> songsList=new ArrayList<>();
+    public static ArrayList<Song> albums=new ArrayList<>();
     int POSITION;
 
-    public int getPOSITION() {
-        return POSITION;
-    }
-
-    public void setPOSITION(int POSITION) {
-        this.POSITION = POSITION;
-    }
 
     @Override
     public void onCreate() {
@@ -37,6 +26,7 @@ public class G extends Application {
 
     public static ArrayList<Song> SongList(Context context) {
         ArrayList<Song> songArrayList =new ArrayList<>();
+        ArrayList<String> duplicate =new ArrayList<>();
         String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
         String sortOrder = MediaStore.Audio.Media.TITLE + " ASC";
 
@@ -68,15 +58,12 @@ public class G extends Application {
             long albumId=cur.getLong(5);
             String id =cur.getString(6);
 
-            //Uri albumArtworkUri = ContentUris.withAppendedId(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,albumId);
-
-
-
             Song song=new Song(album,title,duration,path,artist,albumId,id);
-
             songArrayList.add(song);
-
-
+            if (!duplicate.contains(album)){
+                albums.add(song);
+                duplicate.add(album);
+            }
 
 
         }
@@ -84,55 +71,7 @@ public class G extends Application {
         return songArrayList;
     }
 
-    public ArrayList<Music> GetSongs(){
-        ArrayList<Music> songs=new ArrayList<>();
-        Uri mediaStoreUri;
-        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.Q){
-            mediaStoreUri=MediaStore.Audio.Media.getContentUri(MediaStore.VOLUME_EXTERNAL);
-        }else {
-            mediaStoreUri=MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-        }
 
-        String[] projection=new String[]{
-                MediaStore.Audio.Media._ID,
-                MediaStore.Audio.Media.DISPLAY_NAME,
-                MediaStore.Audio.Media.DURATION,
-                MediaStore.Audio.Media.SIZE,
-                MediaStore.Audio.Media.ALBUM_ID
-        };
-//        String sortOrder = MediaStore.Audio.Media.DATE_ADDED + "DESC";
-        String sortOrder = MediaStore.Audio.Media.TITLE + " ASC";
-        try(Cursor cursor =getContentResolver().query(mediaStoreUri,projection,null,null,sortOrder)) {
-            int idColumn=cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID);
-            int nameColumn=cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DISPLAY_NAME);
-            int durationColumn=cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION);
-            int sizeColumn=cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.SIZE);
-            int albumIdColumn=cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM_ID);
-
-            while (cursor.moveToNext()){
-                long id =cursor.getLong(idColumn);
-                String name =cursor.getString(nameColumn);
-                int duration=cursor.getInt(durationColumn);
-                int size  =cursor.getInt(sizeColumn);
-                long albumId =cursor.getLong(albumIdColumn);
-
-                Uri uri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,id);
-                Uri albumArtworkUri = ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"),albumId);
-
-                //  name=name.substring(0,name.lastIndexOf("."));
-                Music music=new Music(name,uri,albumArtworkUri,size,duration);
-                songs.add(music);
-
-            }
-            return songs;
-
-        }
-
-
-
-
-
-    }
     public static Bitmap convertImageViewToBitmap(ImageView v){
 
         Bitmap bm=((BitmapDrawable)v.getDrawable()).getBitmap();

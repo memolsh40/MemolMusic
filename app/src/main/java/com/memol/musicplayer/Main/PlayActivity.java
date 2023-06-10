@@ -1,7 +1,9 @@
 package com.memol.musicplayer.Main;
 
+import static com.memol.musicplayer.Adabters.AlbumDetailsAdabter.albumDetailsList;
 import static com.memol.musicplayer.Main.MainActivity.btnPlay_Pause;
 import static com.memol.musicplayer.Main.MainActivity.imgAlbumeArt;
+import static com.memol.musicplayer.Main.MainActivity.mainCardView;
 import static com.memol.musicplayer.Main.MainActivity.playService;
 import static com.memol.musicplayer.Main.MainActivity.repeatBoolean;
 import static com.memol.musicplayer.Main.MainActivity.shuffleBoolean;
@@ -34,15 +36,20 @@ import java.util.Random;
 import java.util.Timer;
 
 public class PlayActivity extends AppCompatActivity {
+    @SuppressLint("StaticFieldLeak")
     public static SeekBar seekBarBtnShit;
     public static MaterialButton btnBackBtnShit;
     public static MaterialButton btnPlayBtnShit;
     public static MaterialButton btnNextBtnShit;
     public static MaterialButton btnShuffle;
     public static MaterialButton btnReply;
+    @SuppressLint("StaticFieldLeak")
     public static ImageView imageViewBtnShit;
+    @SuppressLint("StaticFieldLeak")
     public static TextView txtSongNameBtnShit;
+    @SuppressLint("StaticFieldLeak")
     public static  TextView txtArtistNameBtnShit;
+    @SuppressLint("StaticFieldLeak")
     public static  TextView txtDuration;
     public static  TextView txtDurationMx;
     Handler handler=new Handler();
@@ -52,7 +59,7 @@ public class PlayActivity extends AppCompatActivity {
     Thread prevThread;
     int position=-1;
     String uri;
-    ArrayList<Song> songs;
+    ArrayList<Song> playActList =new ArrayList<>();
     Timer timer;
 
     @Override
@@ -125,31 +132,31 @@ public class PlayActivity extends AppCompatActivity {
     private void nextBtnClicked() {
         if (mediaPlayer.isPlaying()){
             if (shuffleBoolean&&!repeatBoolean){
-                position=getRandom(songs.size()-1);
+                position=getRandom(playActList.size()-1);
             }
             else if (!shuffleBoolean&&!repeatBoolean){
-                position=((position+1)%songs.size());
+                position=((position+1)% playActList.size());
             }
             playService.setPosition(position);
-            uri=songs.get(position).getPath();
+            uri= playActList.get(position).getPath();
             playService.StartMusic(uri);
             btnPlayBtnShit.setIconResource(R.drawable.baseline_pause_24);
-            txtSongNameBtnShit.setText(songs.get(position).getTitle());
-            txtArtistNameBtnShit.setText(songs.get(position).getArtist());
-            txtSongName.setText(songs.get(position).getTitle());
-            txtArtistName.setText(songs.get(position).getArtist());
+            txtSongNameBtnShit.setText(playActList.get(position).getTitle());
+            txtArtistNameBtnShit.setText(playActList.get(position).getArtist());
+            txtSongName.setText(playActList.get(position).getTitle());
+            txtArtistName.setText(playActList.get(position).getArtist());
 
             new Runnable() {
                 @Override
                 public void run() {
 
-                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
+                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                             .error(R.drawable.music_image)
                             .placeholder(R.drawable.music_image)
                             .centerCrop()
                             .fallback(R.drawable.music_image)
                             .into(imageViewBtnShit);
-                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
+                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                             .error(R.drawable.music_image)
                             .placeholder(R.drawable.music_image)
                             .centerCrop()
@@ -168,34 +175,34 @@ public class PlayActivity extends AppCompatActivity {
                     handler.postDelayed(this,1000);
                 }
             });
-            int durationMx=Integer.parseInt(songs.get(position).getDuration())/1000;
+            int durationMx=Integer.parseInt(playActList.get(position).getDuration())/1000;
             txtDurationMx.setText(formatted(durationMx));
         }else {
             if (shuffleBoolean&&!repeatBoolean){
-                position=getRandom(songs.size()-1);
+                position=getRandom(playActList.size()-1);
             }
             else if (!shuffleBoolean&&!repeatBoolean){
-                position=((position+1)%songs.size());
+                position=((position+1)% playActList.size());
             }
             playService.setPosition(position);
-            uri=songs.get(position).getPath();
+            uri= playActList.get(position).getPath();
             playService.StartWhenStop(uri);
             btnPlayBtnShit.setIconResource(R.drawable._8px);
-            txtSongNameBtnShit.setText(songs.get(position).getTitle());
-            txtArtistNameBtnShit.setText(songs.get(position).getArtist());
-            txtSongName.setText(songs.get(position).getTitle());
-            txtArtistName.setText(songs.get(position).getArtist());
+            txtSongNameBtnShit.setText(playActList.get(position).getTitle());
+            txtArtistNameBtnShit.setText(playActList.get(position).getArtist());
+            txtSongName.setText(playActList.get(position).getTitle());
+            txtArtistName.setText(playActList.get(position).getArtist());
             new Runnable() {
                 @Override
                 public void run() {
 
-                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
+                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                             .error(R.drawable.music_image)
                             .placeholder(R.drawable.music_image)
                             .centerCrop()
                             .fallback(R.drawable.music_image)
                             .into(imageViewBtnShit);
-                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
+                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                             .error(R.drawable.music_image)
                             .placeholder(R.drawable.music_image)
                             .centerCrop()
@@ -215,7 +222,7 @@ public class PlayActivity extends AppCompatActivity {
                     handler.postDelayed(this,1000);
                 }
             });
-            int durationMx=Integer.parseInt(songs.get(position).getDuration())/1000;
+            int durationMx=Integer.parseInt(playActList.get(position).getDuration())/1000;
             txtDurationMx.setText(formatted(durationMx));
         }
     }
@@ -293,30 +300,30 @@ public class PlayActivity extends AppCompatActivity {
     private void backBtnClicked() {
         if (mediaPlayer.isPlaying()){
             if (shuffleBoolean&&!repeatBoolean){
-                position=getRandom(songs.size()-1);
+                position=getRandom(playActList.size()-1);
             }
             else if (!shuffleBoolean&&!repeatBoolean){
-                position=((position-1)<0 ? (songs.size()-1):(position-1));
+                position=((position-1)<0 ? (playActList.size()-1):(position-1));
             }
             playService.setPosition(position);
-            uri=songs.get(position).getPath();
+            uri= playActList.get(position).getPath();
             playService.StartMusic(uri);
             btnPlayBtnShit.setIconResource(R.drawable.baseline_pause_24);
-            txtSongNameBtnShit.setText(songs.get(position).getTitle());
-            txtArtistNameBtnShit.setText(songs.get(position).getArtist());
-            txtSongName.setText(songs.get(position).getTitle());
-            txtArtistName.setText(songs.get(position).getArtist());
+            txtSongNameBtnShit.setText(playActList.get(position).getTitle());
+            txtArtistNameBtnShit.setText(playActList.get(position).getArtist());
+            txtSongName.setText(playActList.get(position).getTitle());
+            txtArtistName.setText(playActList.get(position).getArtist());
             new Runnable() {
                 @Override
                 public void run() {
 
-                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
+                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                             .error(R.drawable.music_image)
                             .placeholder(R.drawable.music_image)
                             .centerCrop()
                             .fallback(R.drawable.music_image)
                             .into(imageViewBtnShit);
-                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
+                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                             .error(R.drawable.music_image)
                             .placeholder(R.drawable.music_image)
                             .centerCrop()
@@ -335,34 +342,34 @@ public class PlayActivity extends AppCompatActivity {
                     handler.postDelayed(this,1000);
                 }
             });
-            int durationMx=Integer.parseInt(songs.get(position).getDuration())/1000;
+            int durationMx=Integer.parseInt(playActList.get(position).getDuration())/1000;
             txtDurationMx.setText(formatted(durationMx));
         }else {
             if (shuffleBoolean&&!repeatBoolean){
-                position=getRandom(songs.size()-1);
+                position=getRandom(playActList.size()-1);
             }
             else if (!shuffleBoolean&&!repeatBoolean){
-                position=((position-1)<0 ? (songs.size()-1):(position-1));
+                position=((position-1)<0 ? (playActList.size()-1):(position-1));
             }
             playService.setPosition(position);
-            uri=songs.get(position).getPath();
+            uri= playActList.get(position).getPath();
             playService.StartWhenStop(uri);
             btnPlayBtnShit.setIconResource(R.drawable._8px);
-            txtSongNameBtnShit.setText(songs.get(position).getTitle());
-            txtArtistNameBtnShit.setText(songs.get(position).getArtist());
-            txtSongName.setText(songs.get(position).getTitle());
-            txtArtistName.setText(songs.get(position).getArtist());
+            txtSongNameBtnShit.setText(playActList.get(position).getTitle());
+            txtArtistNameBtnShit.setText(playActList.get(position).getArtist());
+            txtSongName.setText(playActList.get(position).getTitle());
+            txtArtistName.setText(playActList.get(position).getArtist());
             new Runnable() {
                 @Override
                 public void run() {
 
-                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
+                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                             .error(R.drawable.music_image)
                             .placeholder(R.drawable.music_image)
                             .centerCrop()
                             .fallback(R.drawable.music_image)
                             .into(imageViewBtnShit);
-                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
+                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                             .error(R.drawable.music_image)
                             .placeholder(R.drawable.music_image)
                             .centerCrop()
@@ -381,25 +388,102 @@ public class PlayActivity extends AppCompatActivity {
                     handler.postDelayed(this,1000);
                 }
             });
-            int durationMx=Integer.parseInt(songs.get(position).getDuration())/1000;
+            int durationMx=Integer.parseInt(playActList.get(position).getDuration())/1000;
             txtDurationMx.setText(formatted(durationMx));
         }
     }
 
 
     private void getInitMethodWhenPlay() {
-        songs=G.SongList(getApplicationContext());
         position=getIntent().getIntExtra("position",-1);
-       if (songs!=null&&mediaPlayer.isPlaying()) {
+        String sender=getIntent().getStringExtra("sender");
+        if (sender!=null &&sender.equals("albumDetails")){
+            playActList =albumDetailsList;
+            MainActivity.setSongs(playActList);
+            playService.StartMusic(playActList.get(position).getPath());
+            btnPlayBtnShit.setIconResource(R.drawable._8px);
+            uri = playActList.get(position).getPath();
+            txtSongNameBtnShit.setText(playActList.get(position).getTitle());
+            txtArtistNameBtnShit.setText(playActList.get(position).getArtist());
+            new Runnable() {
+                @Override
+                public void run() {
+
+                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
+                            .error(R.drawable.music_image)
+                            .placeholder(R.drawable.music_image)
+                            .centerCrop()
+                            .fallback(R.drawable.music_image)
+                            .into(imageViewBtnShit);
+                }
+            }.run();
+            seekBarBtnShit.setMax(mediaPlayer.getDuration()/1000);
+            seekBarBtnShit.setProgress(0);
+            seekBarBtnShit.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    if (mediaPlayer != null && fromUser) {
+                        mediaPlayer.seekTo(progress * 1000);
+                    }
+
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
+                }
+            });
+
+            PlayActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (mediaPlayer != null) {
+                        int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
+                        seekBarBtnShit.setProgress(mCurrentPosition);
+                        txtDuration.setText(formatted(mCurrentPosition));
+                    }
+                    handler.postDelayed(this,1000);
+                }
+            });
+            int durationMx=Integer.parseInt(playActList.get(position).getDuration())/1000;
+            txtDurationMx.setText(formatted(durationMx));
+
+            mainCardView.setVisibility(View.VISIBLE);
+            String uri=playActList.get(position).getPath();
+            playService.setPosition(position);
+            btnPlay_Pause.setIconResource(R.drawable.baseline_pause_24);
+            txtSongName.setText(playActList.get(position).getTitle());
+            txtArtistName.setText(playActList.get(position).getArtist());
+            new Runnable() {
+                @Override
+                public void run() {
+
+                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
+                            .error(R.drawable.music_image)
+                            .placeholder(R.drawable.music_image)
+                            .centerCrop()
+                            .fallback(R.drawable.music_image)
+                            .into(imgAlbumeArt);
+                }
+            }.run();
+        }else {
+            playActList =G.SongList(getApplicationContext());
+        }
+       if (playActList !=null&&mediaPlayer.isPlaying()) {
            btnPlayBtnShit.setIconResource(R.drawable.baseline_pause_24);
-           uri = songs.get(position).getPath();
-           txtSongNameBtnShit.setText(songs.get(position).getTitle());
-           txtArtistNameBtnShit.setText(songs.get(position).getArtist());
+           uri = playActList.get(position).getPath();
+           txtSongNameBtnShit.setText(playActList.get(position).getTitle());
+           txtArtistNameBtnShit.setText(playActList.get(position).getArtist());
            new Runnable() {
                @Override
                public void run() {
 
-                   GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
+                   GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                            .error(R.drawable.music_image)
                            .placeholder(R.drawable.music_image)
                            .centerCrop()
@@ -408,14 +492,17 @@ public class PlayActivity extends AppCompatActivity {
                }
            }.run();
            seekBarBtnShit.setMax(mediaPlayer.getDuration()/1000);
+           int max=seekBarBtnShit.getMax();
            seekBarBtnShit.setProgress(0);
+
            seekBarBtnShit.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                @Override
                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
                    if (mediaPlayer != null && fromUser) {
                        mediaPlayer.seekTo(progress * 1000);
                    }
-               }
+                }
 
                @Override
                public void onStartTrackingTouch(SeekBar seekBar) {
@@ -439,19 +526,20 @@ public class PlayActivity extends AppCompatActivity {
                    handler.postDelayed(this,1000);
                }
            });
-           int durationMx=Integer.parseInt(songs.get(position).getDuration())/1000;
+           int durationMx=Integer.parseInt(playActList.get(position).getDuration())/1000;
            txtDurationMx.setText(formatted(durationMx));
        }
+
        if (!mediaPlayer.isPlaying()){
            btnPlayBtnShit.setIconResource(R.drawable._8px);
-           uri = songs.get(position).getPath();
-           txtSongNameBtnShit.setText(songs.get(position).getTitle());
-           txtArtistNameBtnShit.setText(songs.get(position).getArtist());
+           uri = playActList.get(position).getPath();
+           txtSongNameBtnShit.setText(playActList.get(position).getTitle());
+           txtArtistNameBtnShit.setText(playActList.get(position).getArtist());
            new Runnable() {
                @Override
                public void run() {
 
-                   GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
+                   GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                            .error(R.drawable.music_image)
                            .placeholder(R.drawable.music_image)
                            .centerCrop()
@@ -467,6 +555,7 @@ public class PlayActivity extends AppCompatActivity {
                    if (mediaPlayer != null && fromUser) {
                        mediaPlayer.seekTo(progress * 1000);
                    }
+
                }
 
                @Override
@@ -491,8 +580,10 @@ public class PlayActivity extends AppCompatActivity {
                    handler.postDelayed(this,1000);
                }
            });
-           int durationMx=Integer.parseInt(songs.get(position).getDuration())/1000;
+           int durationMx=Integer.parseInt(playActList.get(position).getDuration())/1000;
            txtDurationMx.setText(formatted(durationMx));
+
+
        }
     }
 

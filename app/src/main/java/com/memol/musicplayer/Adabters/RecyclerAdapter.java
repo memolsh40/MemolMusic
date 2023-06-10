@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.memol.musicplayer.GlideApp;
+import com.memol.musicplayer.Main.MainActivity;
 import com.memol.musicplayer.Main.PlayActivity;
 import com.memol.musicplayer.Model.Song;
 import com.memol.musicplayer.R;
@@ -92,6 +93,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 holder.cardView.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
+        MainActivity.setSongs(songArrayList);
         mainCardView.setVisibility(View.VISIBLE);
         String uri=song.getPath();
         playService.StartMusic(uri);

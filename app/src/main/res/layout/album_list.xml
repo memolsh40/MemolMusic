@@ -7,14 +7,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/CardView"
+        android:id="@+id/AlbumeListCardView"
         android:layout_width="match_parent"
         android:layout_height="175dp"
         android:background="@null"
         android:clickable="true"
         android:checkable="true"
         android:padding="10dp"
+        app:cardElevation="100dp"
         app:cardCornerRadius="35dp"
+        app:strokeWidth="0dp"
         tools:ignore="InvalidId,SpeakableTextPresentCheck">
 
         <ImageView
@@ -29,7 +31,7 @@
         android:id="@+id/txtAlbum"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_below="@+id/CardView"
+        android:layout_below="@+id/AlbumeListCardView"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="-1dp"
         android:layout_marginBottom="1dp"
