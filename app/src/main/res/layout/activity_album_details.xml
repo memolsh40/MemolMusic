@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Main.PlayActivity"
+    android:id="@+id/AlbumDetailsID"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/layout_top_btn"
+        android:layout_width="match_parent"
+        android:background="@drawable/gradient_bg"
+        android:layout_alignParentRight="true"
+        android:layout_height="50dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAlbumBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            style="?attr/materialIconButtonStyle"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            app:iconSize="22dp"
+            app:iconGravity="textStart"
+            app:icon="@drawable/baseline_arrow_back_24"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+
+
+        <TextView
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="150dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="Albums"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/AlbumCardView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@id/layout_top_btn"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/AlbumeImgView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_launcher_background" />
+        <ImageView
+            android:id="@+id/AlbumeimageGrd"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:src="@drawable/gradient_bg"
+            android:layout_alignParentBottom="true"
+            tools:ignore="DuplicateIds" />
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/AlbumeRcv"
+        android:layout_below="@id/AlbumeImgView"/>
+
+
+
+
+
+</LinearLayout>
