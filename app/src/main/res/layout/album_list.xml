@@ -14,7 +14,6 @@
         android:clickable="true"
         android:checkable="true"
         android:padding="10dp"
-        app:cardElevation="100dp"
         app:cardCornerRadius="35dp"
         app:strokeWidth="0dp"
         tools:ignore="InvalidId,SpeakableTextPresentCheck">

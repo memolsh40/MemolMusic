@@ -18,6 +18,7 @@ import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -59,7 +60,9 @@ public class PlayActivity extends AppCompatActivity {
     Thread prevThread;
     int position=-1;
     String uri;
-    ArrayList<Song> playActList =new ArrayList<>();
+   public static ArrayList<Song> playActList =new ArrayList<>();
+
+
     Timer timer;
 
     @Override
@@ -399,7 +402,7 @@ public class PlayActivity extends AppCompatActivity {
         String sender=getIntent().getStringExtra("sender");
         if (sender!=null &&sender.equals("albumDetails")){
             playActList =albumDetailsList;
-            MainActivity.setSongs(playActList);
+            MainActivity.setSongs(albumDetailsList);
             playService.StartMusic(playActList.get(position).getPath());
             btnPlayBtnShit.setIconResource(R.drawable._8px);
             uri = playActList.get(position).getPath();
@@ -471,12 +474,73 @@ public class PlayActivity extends AppCompatActivity {
                             .into(imgAlbumeArt);
                 }
             }.run();
-        }else {
-            playActList =G.SongList(getApplicationContext());
         }
-       if (playActList !=null&&mediaPlayer.isPlaying()) {
+        else {
+            playActList =G.SongList(getApplicationContext());
+            MainActivity.setSongs(G.SongList(getApplicationContext()));
+        }
+       if (mediaPlayer.isPlaying()&&albumDetailsList.size()>0) {
+           playActList=albumDetailsList;
            btnPlayBtnShit.setIconResource(R.drawable.baseline_pause_24);
            uri = playActList.get(position).getPath();
+           Log.i("URI",uri);
+           txtSongNameBtnShit.setText(playActList.get(position).getTitle());
+           txtArtistNameBtnShit.setText(playActList.get(position).getArtist());
+           new Runnable() {
+               @Override
+               public void run() {
+
+                   GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
+                           .error(R.drawable.music_image)
+                           .placeholder(R.drawable.music_image)
+                           .centerCrop()
+                           .fallback(R.drawable.music_image)
+                           .into(imageViewBtnShit);
+               }
+           }.run();
+           seekBarBtnShit.setMax(mediaPlayer.getDuration()/1000);
+           int max=seekBarBtnShit.getMax();
+           seekBarBtnShit.setProgress(0);
+
+           seekBarBtnShit.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+               @Override
+               public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                   if (mediaPlayer != null && fromUser) {
+                       mediaPlayer.seekTo(progress * 1000);
+                   }
+                }
+
+               @Override
+               public void onStartTrackingTouch(SeekBar seekBar) {
+
+               }
+
+               @Override
+               public void onStopTrackingTouch(SeekBar seekBar) {
+
+               }
+           });
+
+           PlayActivity.this.runOnUiThread(new Runnable() {
+               @Override
+               public void run() {
+                   if (mediaPlayer != null) {
+                       int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
+                       seekBarBtnShit.setProgress(mCurrentPosition);
+                       txtDuration.setText(formatted(mCurrentPosition));
+                   }
+                   handler.postDelayed(this,1000);
+               }
+           });
+           int durationMx=Integer.parseInt(playActList.get(position).getDuration())/1000;
+           txtDurationMx.setText(formatted(durationMx));
+       }
+       if (mediaPlayer.isPlaying()&&albumDetailsList.size()==0) {
+           playActList =G.SongList(getApplicationContext());
+           btnPlayBtnShit.setIconResource(R.drawable.baseline_pause_24);
+           uri = playActList.get(position).getPath();
+           Log.i("URI",uri);
            txtSongNameBtnShit.setText(playActList.get(position).getTitle());
            txtArtistNameBtnShit.setText(playActList.get(position).getArtist());
            new Runnable() {
@@ -530,7 +594,10 @@ public class PlayActivity extends AppCompatActivity {
            txtDurationMx.setText(formatted(durationMx));
        }
 
+
+
        if (!mediaPlayer.isPlaying()){
+           playActList =G.SongList(getApplicationContext());
            btnPlayBtnShit.setIconResource(R.drawable._8px);
            uri = playActList.get(position).getPath();
            txtSongNameBtnShit.setText(playActList.get(position).getTitle());

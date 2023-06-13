@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.memol.musicplayer.GlideApp;
+import com.memol.musicplayer.Main.MainActivity;
 import com.memol.musicplayer.Main.PlayActivity;
 import com.memol.musicplayer.Model.Song;
 import com.memol.musicplayer.R;
@@ -61,9 +62,12 @@ public class AlbumDetailsAdabter extends RecyclerView.Adapter<AlbumDetailsAdabte
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent =new Intent(context, PlayActivity.class);
                 intent.putExtra("sender","albumDetails");
                 intent.putExtra("position",position);
+                MainActivity.playService.setPosition(position);
+                MainActivity.setSongs(albumDetailsList);
                 context.startActivity(intent);
             }
         });

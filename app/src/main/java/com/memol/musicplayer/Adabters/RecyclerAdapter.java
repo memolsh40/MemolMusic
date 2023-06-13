@@ -1,5 +1,6 @@
 package com.memol.musicplayer.Adabters;
 
+import static com.memol.musicplayer.Adabters.AlbumDetailsAdabter.albumDetailsList;
 import static com.memol.musicplayer.Main.MainActivity.btnPlay_Pause;
 import static com.memol.musicplayer.Main.MainActivity.imgAlbumeArt;
 import static com.memol.musicplayer.Main.MainActivity.mainCardView;
@@ -27,6 +28,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
+import com.memol.musicplayer.G;
 import com.memol.musicplayer.GlideApp;
 import com.memol.musicplayer.Main.MainActivity;
 import com.memol.musicplayer.Main.PlayActivity;
@@ -93,7 +95,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 holder.cardView.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        MainActivity.setSongs(songArrayList);
+        albumDetailsList.clear();
+        MainActivity.setSongs(G.SongList(context));
         mainCardView.setVisibility(View.VISIBLE);
         String uri=song.getPath();
         playService.StartMusic(uri);
@@ -115,6 +118,9 @@ holder.cardView.setOnClickListener(new View.OnClickListener() {
         }.run();
     }
 });
+
+
+//mainCardView is Mini Player in MainActivity
 mainCardView.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {

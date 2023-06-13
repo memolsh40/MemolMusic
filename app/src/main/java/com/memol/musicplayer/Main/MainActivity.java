@@ -229,6 +229,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public static ArrayList<Song> getSongs() {
+        return songs;
+    }
 
     public static void setSongs(ArrayList<Song> songs) {
         MainActivity.songs = songs;
