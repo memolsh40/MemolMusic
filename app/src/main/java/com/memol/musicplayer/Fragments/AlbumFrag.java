@@ -14,7 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.memol.musicplayer.Adabters.AlbumAdabter;
 import com.memol.musicplayer.G;
+import com.memol.musicplayer.Model.Song;
 import com.memol.musicplayer.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,6 +67,7 @@ public class AlbumFrag extends Fragment {
     }
     RecyclerView recyclerView;
     public static  AlbumAdabter albumAdabter;
+    ArrayList<Song> albumFragList=new ArrayList<>();
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -73,8 +77,9 @@ public class AlbumFrag extends Fragment {
          View view =inflater.inflate(R.layout.fragment_album, container, false);
          recyclerView=view.findViewById(R.id.albumRv);
          recyclerView.setHasFixedSize(true);
-        if (!(G.albums.size()<0)){
-            albumAdabter=new AlbumAdabter(G.albums,getContext(),R.layout.album_list);
+         albumFragList= G.albums;
+        if (!(albumFragList.size()<0)){
+            albumAdabter=new AlbumAdabter(albumFragList,getContext(),R.layout.album_list);
             recyclerView.setAdapter(albumAdabter);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));

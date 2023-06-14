@@ -1,12 +1,10 @@
 package com.memol.musicplayer;
 
-import static com.memol.musicplayer.Main.MainActivity.songs;
-
 import android.content.ContentUris;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,19 +20,21 @@ public class AlbumDetails extends AppCompatActivity {
     ImageView imageView;
     String albumeName;
     ArrayList<Song>songDetails = new ArrayList<>();
+    ArrayList<Song>generalList = new ArrayList<>();
     AlbumDetailsAdabter adabter;
+    TextView txtAlbumeDetails;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_details);
         SetupView();
-
+        generalList= G.SongList(getApplicationContext());
         albumeName=getIntent().getStringExtra("albumName");
+        txtAlbumeDetails.setText(albumeName);
         int j = 0;
-        for (int i =0;i<songs.size();i++){
-            if (albumeName.equals(songs.get(i).getAlbum())){
-                songDetails.add(j,songs.get(i));
-                Log.i("AlbumeList2", String.valueOf(j+""+i));
+        for (int i =0;i<generalList.size();i++){
+            if (albumeName.equals(generalList.get(i).getAlbum())){
+                songDetails.add(j,generalList.get(i));
                 j  ++;
             }
         }
@@ -55,7 +55,7 @@ public class AlbumDetails extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (!(songs.size()<1)){
+        if (!(generalList.size()<1)){
             adabter=new AlbumDetailsAdabter(songDetails,AlbumDetails.this,R.layout.song_list);
             recyclerView.setAdapter(adabter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
@@ -65,6 +65,7 @@ public class AlbumDetails extends AppCompatActivity {
     private void SetupView() {
         recyclerView=findViewById(R.id.AlbumeRcv);
         imageView=findViewById(R.id.AlbumeImgView);
+        txtAlbumeDetails=findViewById(R.id.txtAlbumeDetails);
 
     }
 }

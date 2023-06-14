@@ -24,7 +24,7 @@ import com.memol.musicplayer.R;
 import java.util.ArrayList;
 
 public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> {
-    private final ArrayList<Song> songArrayList;
+    private  ArrayList<Song> songArrayList=new ArrayList<>();
     private final Context context;
     private int recource;
 
@@ -61,6 +61,7 @@ public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> 
         holder.albumeCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent =new Intent(context, AlbumDetails.class);
                 intent.putExtra("albumName",songArrayList.get(position).getAlbum());
                 context.startActivity(intent);

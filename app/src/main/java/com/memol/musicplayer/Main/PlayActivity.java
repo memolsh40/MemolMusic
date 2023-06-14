@@ -476,8 +476,7 @@ public class PlayActivity extends AppCompatActivity {
             }.run();
         }
         else {
-            playActList =G.SongList(getApplicationContext());
-            MainActivity.setSongs(G.SongList(getApplicationContext()));
+            playActList =MainActivity.getSongs();
         }
        if (mediaPlayer.isPlaying()&&albumDetailsList.size()>0) {
            playActList=albumDetailsList;
@@ -540,7 +539,6 @@ public class PlayActivity extends AppCompatActivity {
            playActList =G.SongList(getApplicationContext());
            btnPlayBtnShit.setIconResource(R.drawable.baseline_pause_24);
            uri = playActList.get(position).getPath();
-           Log.i("URI",uri);
            txtSongNameBtnShit.setText(playActList.get(position).getTitle());
            txtArtistNameBtnShit.setText(playActList.get(position).getArtist());
            new Runnable() {

@@ -39,10 +39,11 @@
                 app:cardCornerRadius="33dp"
                 android:clickable="true"
                 android:checkable="true"
+                app:strokeWidth="0dp"
                 tools:ignore="MissingConstraints">
             <ImageView
                 android:id="@+id/imageListMain"
-                android:layout_width="50dp"
+                android:layout_width="46dp"
                 android:layout_height="50dp"
                 android:scaleType="fitXY"
                 android:layout_gravity="center"
@@ -87,46 +88,50 @@
                 android:textSize="10sp"
                 tools:ignore="HardcodedText,SmallSp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnNext"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                style="?attr/materialIconButtonStyle"
-               app:iconGravity="textStart"
-               android:gravity="center"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="100dp"
-                android:layout_marginBottom="12dp"
-                android:layout_toEndOf="@+id/txtMusicName"
-                app:icon="@drawable/skipnest"
-                android:clickable="true"
-                tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnPlay"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="121dp"
                 android:layout_height="wrap_content"
-                style="?attr/materialIconButtonStyle"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="57dp"
-                android:layout_marginBottom="8dp"
+                android:layout_alignParentEnd="true"
+                android:gravity="center"
+                android:layout_marginTop="9dp"
                 android:layout_toEndOf="@+id/txtMusicName"
-             app:icon="@drawable/_8px"
-                tools:ignore="RelativeOverlap,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBack"
+                    style="?attr/materialIconButtonStyle"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:icon="@drawable/back"
+                    app:iconGravity="textStart"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPlay"
+                    style="?attr/materialIconButtonStyle"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:icon="@drawable/_8px"
+                    app:iconGravity="textStart"
+                    tools:ignore="RelativeOverlap,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNext"
+                    style="?attr/materialIconButtonStyle"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    app:icon="@drawable/skipnest"
+                    app:iconGravity="textStart"
+                    tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+
+            </LinearLayout>
 
 
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="?attr/materialIconButtonStyle"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="15dp"
-                android:layout_marginBottom="8dp"
-                android:layout_toEndOf="@+id/txtMusicName"
-                app:icon="@drawable/back"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
 
         </RelativeLayout>
