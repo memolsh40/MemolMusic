@@ -30,6 +30,7 @@ public class PlayService extends Service {
         return binder;
     }
 
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -43,6 +44,8 @@ public class PlayService extends Service {
         mediaPlayer.start();
         return START_STICKY;
     }
+
+
 
     @Override
     public void onDestroy() {
@@ -76,7 +79,7 @@ public class PlayService extends Service {
 
     }
 
-    public int getPosition() {
+    public  int getPosition() {
         return position;
     }
 

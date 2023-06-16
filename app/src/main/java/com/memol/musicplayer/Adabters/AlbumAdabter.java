@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -62,6 +63,9 @@ public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> 
             @Override
             public void onClick(View v) {
 
+                if (songArrayList.get(position).equals(0)){
+                    Toast.makeText(context, "Not Exists", Toast.LENGTH_SHORT).show();
+                }
                 Intent intent =new Intent(context, AlbumDetails.class);
                 intent.putExtra("albumName",songArrayList.get(position).getAlbum());
                 context.startActivity(intent);

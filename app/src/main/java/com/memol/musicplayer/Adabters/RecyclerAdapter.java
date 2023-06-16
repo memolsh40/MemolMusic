@@ -1,6 +1,7 @@
 package com.memol.musicplayer.Adabters;
 
 import static com.memol.musicplayer.Adabters.AlbumDetailsAdabter.albumDetailsList;
+import static com.memol.musicplayer.Fragments.AlbumFrag.albumAdabter;
 import static com.memol.musicplayer.Main.MainActivity.btnPlay_Pause;
 import static com.memol.musicplayer.Main.MainActivity.imgAlbumeArt;
 import static com.memol.musicplayer.Main.MainActivity.mainCardView;
@@ -142,6 +143,8 @@ mainCardView.setOnClickListener(new View.OnClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
                         if (item.getItemId()==R.id.delete){
                             deleteFile(position,v);
+                            albumAdabter.notifyItemRemoved(position);
+                            albumAdabter.notifyItemRangeChanged(position,G.albums.size());
                         }
                         return true;
                     }
@@ -160,6 +163,8 @@ mainCardView.setOnClickListener(new View.OnClickListener() {
             songArrayList.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position,songArrayList.size());
+            albumAdabter.notifyItemRemoved(position);
+            albumAdabter.notifyItemRangeChanged(position,G.albums.size());
             Toast.makeText(context, "File deleted", Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(context, "Please allow access to the file", Toast.LENGTH_SHORT).show();
