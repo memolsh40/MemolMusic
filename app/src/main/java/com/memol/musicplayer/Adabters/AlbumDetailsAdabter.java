@@ -52,10 +52,10 @@ public class AlbumDetailsAdabter extends RecyclerView.Adapter<AlbumDetailsAdabte
             public void run() {
 
                 GlideApp.with(context).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), albumDetailsList.get(position).getAlbumId()))
-                        .error(R.drawable.music_image)
-                        .placeholder(R.drawable.music_image)
+                        .error(R.drawable.music_blue_night)
+                        .placeholder(R.drawable.music_blue_night)
                         .centerCrop()
-                        .fallback(R.drawable.music_image)
+                        .fallback(R.drawable.music_blue_night)
                         .into(holder.imageView);
             }
         }.run();

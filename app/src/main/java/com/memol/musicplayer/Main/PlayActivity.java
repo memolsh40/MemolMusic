@@ -32,7 +32,6 @@ import com.memol.musicplayer.Model.Song;
 import com.memol.musicplayer.R;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Timer;
 
 public class PlayActivity extends AppCompatActivity {
@@ -179,10 +178,10 @@ public class PlayActivity extends AppCompatActivity {
         });nextThread.start();
     }
 
-    private void nextBtnClicked() {
+    private   void nextBtnClicked() {
         if (mediaPlayer.isPlaying()){
             if (shuffleBoolean&&!repeatBoolean){
-                position=getRandom(playActList.size()-1);
+                position=G.getRandom(playActList.size()-1);
             }
             else if (!shuffleBoolean&&!repeatBoolean){
                 position=((position+1)% playActList.size());
@@ -213,16 +212,16 @@ public class PlayActivity extends AppCompatActivity {
                 public void run() {
 
                     GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
-                            .error(R.drawable.music_image)
-                            .placeholder(R.drawable.music_image)
+                            .error(R.drawable.music_blue_night)
+                            .placeholder(R.drawable.music_blue_night)
                             .centerCrop()
-                            .fallback(R.drawable.music_image)
+                            .fallback(R.drawable.music_blue_night)
                             .into(imageViewBtnShit);
                     GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
-                            .error(R.drawable.music_image)
-                            .placeholder(R.drawable.music_image)
+                            .error(R.drawable.music_blue_night)
+                            .placeholder(R.drawable.music_blue_night)
                             .centerCrop()
-                            .fallback(R.drawable.music_image)
+                            .fallback(R.drawable.music_blue_night)
                             .into(imgAlbumeArt);
                 }
             }.run();
@@ -232,7 +231,7 @@ public class PlayActivity extends AppCompatActivity {
         }
         else {
             if (shuffleBoolean&&!repeatBoolean){
-                position=getRandom(playActList.size()-1);
+                position=G.getRandom(playActList.size()-1);
             }
             else if (!shuffleBoolean&&!repeatBoolean){
                 position=((position+1)% playActList.size());
@@ -261,16 +260,16 @@ public class PlayActivity extends AppCompatActivity {
                 public void run() {
 
                     GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
-                            .error(R.drawable.music_image)
-                            .placeholder(R.drawable.music_image)
+                            .error(R.drawable.music_blue_night)
+                            .placeholder(R.drawable.music_blue_night)
                             .centerCrop()
-                            .fallback(R.drawable.music_image)
+                            .fallback(R.drawable.music_blue_night)
                             .into(imageViewBtnShit);
                     GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
-                            .error(R.drawable.music_image)
-                            .placeholder(R.drawable.music_image)
+                            .error(R.drawable.music_blue_night)
+                            .placeholder(R.drawable.music_blue_night)
                             .centerCrop()
-                            .fallback(R.drawable.music_image)
+                            .fallback(R.drawable.music_blue_night)
                             .into(imgAlbumeArt);
 
                 }
@@ -365,7 +364,7 @@ public class PlayActivity extends AppCompatActivity {
     public void backBtnClicked() {
         if (mediaPlayer.isPlaying()){
             if (shuffleBoolean&&!repeatBoolean){
-                position=getRandom(playActList.size()-1);
+                position=G.getRandom(playActList.size()-1);
             }
             else if (!shuffleBoolean&&!repeatBoolean){
                 position=((position-1)<0 ? (playActList.size()-1):(position-1));
@@ -402,16 +401,16 @@ public class PlayActivity extends AppCompatActivity {
                 public void run() {
 
                     GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
-                            .error(R.drawable.music_image)
-                            .placeholder(R.drawable.music_image)
+                            .error(R.drawable.music_blue_night)
+                            .placeholder(R.drawable.music_blue_night)
                             .centerCrop()
-                            .fallback(R.drawable.music_image)
+                            .fallback(R.drawable.music_blue_night)
                             .into(imageViewBtnShit);
                     GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
-                            .error(R.drawable.music_image)
-                            .placeholder(R.drawable.music_image)
+                            .error(R.drawable.music_blue_night)
+                            .placeholder(R.drawable.music_blue_night)
                             .centerCrop()
-                            .fallback(R.drawable.music_image)
+                            .fallback(R.drawable.music_blue_night)
                             .into(imgAlbumeArt);
                 }
             }.run();
@@ -421,7 +420,7 @@ public class PlayActivity extends AppCompatActivity {
         }
         else {
             if (shuffleBoolean&&!repeatBoolean){
-                position=getRandom(playActList.size()-1);
+                position=G.getRandom(playActList.size()-1);
             }
             else if (!shuffleBoolean&&!repeatBoolean){
                 position=((position-1)<0 ? (playActList.size()-1):(position-1));
@@ -455,16 +454,16 @@ public class PlayActivity extends AppCompatActivity {
                 public void run() {
 
                     GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
-                            .error(R.drawable.music_image)
-                            .placeholder(R.drawable.music_image)
+                            .error(R.drawable.music_blue_night)
+                            .placeholder(R.drawable.music_blue_night)
                             .centerCrop()
-                            .fallback(R.drawable.music_image)
+                            .fallback(R.drawable.music_blue_night)
                             .into(imageViewBtnShit);
                     GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
-                            .error(R.drawable.music_image)
-                            .placeholder(R.drawable.music_image)
+                            .error(R.drawable.music_blue_night)
+                            .placeholder(R.drawable.music_blue_night)
                             .centerCrop()
-                            .fallback(R.drawable.music_image)
+                            .fallback(R.drawable.music_blue_night)
                             .into(imgAlbumeArt);
                 }
             }.run();
@@ -501,10 +500,10 @@ public class PlayActivity extends AppCompatActivity {
                 public void run() {
 
                     GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
-                            .error(R.drawable.music_image)
-                            .placeholder(R.drawable.music_image)
+                            .error(R.drawable.music_blue_night)
+                            .placeholder(R.drawable.music_blue_night)
                             .centerCrop()
-                            .fallback(R.drawable.music_image)
+                            .fallback(R.drawable.music_blue_night)
                             .into(imageViewBtnShit);
                 }
             }.run();
@@ -521,10 +520,10 @@ public class PlayActivity extends AppCompatActivity {
                 public void run() {
 
                     GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
-                            .error(R.drawable.music_image)
-                            .placeholder(R.drawable.music_image)
+                            .error(R.drawable.music_blue_night)
+                            .placeholder(R.drawable.music_blue_night)
                             .centerCrop()
-                            .fallback(R.drawable.music_image)
+                            .fallback(R.drawable.music_blue_night)
                             .into(imgAlbumeArt);
                 }
             }.run();
@@ -544,10 +543,10 @@ public class PlayActivity extends AppCompatActivity {
                public void run() {
 
                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
-                           .error(R.drawable.music_image)
-                           .placeholder(R.drawable.music_image)
+                           .error(R.drawable.music_blue_night)
+                           .placeholder(R.drawable.music_blue_night)
                            .centerCrop()
-                           .fallback(R.drawable.music_image)
+                           .fallback(R.drawable.music_blue_night)
                            .into(imageViewBtnShit);
                }
            }.run();
@@ -566,10 +565,10 @@ public class PlayActivity extends AppCompatActivity {
                public void run() {
 
                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
-                           .error(R.drawable.music_image)
-                           .placeholder(R.drawable.music_image)
+                           .error(R.drawable.music_blue_night)
+                           .placeholder(R.drawable.music_blue_night)
                            .centerCrop()
-                           .fallback(R.drawable.music_image)
+                           .fallback(R.drawable.music_blue_night)
                            .into(imageViewBtnShit);
                }
            }.run();
@@ -588,10 +587,10 @@ public class PlayActivity extends AppCompatActivity {
                public void run() {
 
                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
-                           .error(R.drawable.music_image)
-                           .placeholder(R.drawable.music_image)
+                           .error(R.drawable.music_blue_night)
+                           .placeholder(R.drawable.music_blue_night)
                            .centerCrop()
-                           .fallback(R.drawable.music_image)
+                           .fallback(R.drawable.music_blue_night)
                            .into(imageViewBtnShit);
                }
            }.run();
@@ -611,10 +610,10 @@ public class PlayActivity extends AppCompatActivity {
                public void run() {
 
                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
-                           .error(R.drawable.music_image)
-                           .placeholder(R.drawable.music_image)
+                           .error(R.drawable.music_blue_night)
+                           .placeholder(R.drawable.music_blue_night)
                            .centerCrop()
-                           .fallback(R.drawable.music_image)
+                           .fallback(R.drawable.music_blue_night)
                            .into(imageViewBtnShit);
                }
            }.run();
@@ -655,10 +654,7 @@ public class PlayActivity extends AppCompatActivity {
         txtDuration=findViewById(R.id.txtTime);
         txtDurationMx=findViewById(R.id.txtCompletTime);
     }
-    private int getRandom(int i) {
-        Random random=new Random();
-        return random.nextInt(i+1);
-    }
+
 
 
 

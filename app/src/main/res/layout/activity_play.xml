@@ -111,17 +111,21 @@
             android:id="@+id/txtTime"
             android:layout_width="40dp"
             android:layout_height="20dp"
-            android:text="00:00"
+            android:layout_marginStart="34dp"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="32dp"/>
+            android:text="00:00"
+            android:textSize="12dp"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/txtCompletTime"
             android:layout_width="40dp"
             android:layout_height="20dp"
-            android:layout_marginStart="347dp"
+            android:layout_marginStart="351dp"
             android:layout_marginTop="10dp"
-            android:text="00:00" />
+            android:text="00:00"
+            android:textSize="12dp"
+            tools:ignore="TextSizeCheck" />
 
         <SeekBar
             android:id="@+id/SeekbarbtnShit"

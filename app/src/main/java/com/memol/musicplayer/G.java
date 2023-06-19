@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.memol.musicplayer.Model.Song;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class G extends Application {
     public static ArrayList<Song> albums=new ArrayList<>();
@@ -77,6 +78,10 @@ public class G extends Application {
         Bitmap bm=((BitmapDrawable)v.getDrawable()).getBitmap();
 
         return bm;
+    }
+    public static int getRandom(int i) {
+        Random random=new Random();
+        return random.nextInt(i+1);
     }
 
 

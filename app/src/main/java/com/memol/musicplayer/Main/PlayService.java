@@ -9,6 +9,8 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 
@@ -89,15 +91,27 @@ public class PlayService extends Service {
 
     public void StartMusic(String path){
 
-  if (mediaPlayer!=null){
-      mediaPlayer.stop();
-      mediaPlayer.release();
-      mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(path));
-      mediaPlayer.start();
-  }else {
-      mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(path));
-      mediaPlayer.start();
-  }
+        try {
+            if (mediaPlayer!=null){
+                mediaPlayer.stop();
+                mediaPlayer.release();
+                mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(path));
+                mediaPlayer.start();
+                Log.i("mediaPlayer",path);
+            } else {
+                mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(path));
+                mediaPlayer.start();
+            }
+        }catch (Exception e){
+            Toast.makeText(this, "sorry", Toast.LENGTH_LONG).show();
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse("/storage/emulated/0/Music/Billie_Eilish_everything_i_wanted_Matt_Steffanina_Remix.hd.mp3"));
+            mediaPlayer.start();
+
+
+        }
+
     }
     public void StartWhenStop(String path){
 
