@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -96,8 +97,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 holder.cardView.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        albumDetailsList.clear();
-        G.albumsList.clear();
+
        MainActivity.setSongs(G.SongList(context));
         mainCardView.setVisibility(View.VISIBLE);
         String uri=song.getPath();
@@ -106,6 +106,7 @@ holder.cardView.setOnClickListener(new View.OnClickListener() {
         btnPlay_Pause.setIconResource(R.drawable.baseline_pause_24);
         txtSongName.setText(song.getTitle());
         txtArtistName.setText(song.getArtist());
+
         new Runnable() {
             @Override
             public void run() {
@@ -118,6 +119,12 @@ holder.cardView.setOnClickListener(new View.OnClickListener() {
                         .into(imgAlbumeArt);
             }
         }.run();
+        G.artistList.clear();
+        albumDetailsList.clear();
+        G.albumsList.clear();
+        Log.i("AlbumeSize", String.valueOf(G.albumsList.size()));
+        Log.i("AlbumeSize", String.valueOf(G.artistList.size()));
+        Log.i("AlbumeSize", String.valueOf(G.SongList(context).size()));
     }
 });
 

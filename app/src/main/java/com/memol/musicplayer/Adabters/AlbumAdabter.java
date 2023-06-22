@@ -28,6 +28,7 @@ public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> 
     private  ArrayList<Song> songArrayList;
     private final Context context;
     private int recource;
+    View view;
 
     public AlbumAdabter(ArrayList<Song> songArrayList, Context context, int recource) {
         this.songArrayList = songArrayList;
@@ -39,7 +40,7 @@ public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> 
     @NonNull
     @Override
     public AlbumAdabter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(context).inflate(recource,parent,false);
+        view= LayoutInflater.from(context).inflate(recource,parent,false);
         return new ViewHolder(view);
     }
 
@@ -58,17 +59,26 @@ public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> 
                         .placeholder(R.drawable.music_blue_night)
                         .centerCrop()
                         .fallback(R.drawable.music_blue_night)
+
                         .into(holder.imgAlbum);
+
             }
         }.run();
         holder.albumeCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Log.i("AlbumeSize", String.valueOf(G.albumsList.size()));
+
                 Intent intent =new Intent(context, AlbumDetails.class);
                 intent.putExtra("albumName",songArrayList.get(position).getAlbum());
                 context.startActivity(intent);
+                G.albumsList.clear();
+                Log.i("AlbumeSize", String.valueOf(G.albumsList.size()));
+                Log.i("AlbumeSize", String.valueOf(G.artistList.size()));
+                Log.i("AlbumeSize", String.valueOf(G.SongList(context).size()));
+                G.artistList.clear();
+
+
             }
         });
 

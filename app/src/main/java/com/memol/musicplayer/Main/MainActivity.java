@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
                         position=G.getRandom(playActList.size()-1);
                     }
                     else if (!shuffleBoolean&&!repeatBoolean){
-                        position=((position-1)<0 ? (playActList.size()-1):(position-1));
+                        position=((position-1)<0 ? (songs.size()-1):(position-1));
                     }
                     playService.setPosition(position);
                     uri=songs.get(position).getPath();
@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
                         position=G.getRandom(playActList.size()-1);
                     }
                     else if (!shuffleBoolean&&!repeatBoolean){
-                        position=((position-1)<0 ? (playActList.size()-1):(position-1));
+                        position=((position-1)<0 ? (songs.size()-1):(position-1));
                     }
                     playService.setPosition(position);
                     uri=songs.get(position).getPath();

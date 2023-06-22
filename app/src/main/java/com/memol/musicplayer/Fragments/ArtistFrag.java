@@ -64,8 +64,8 @@ public class ArtistFrag extends Fragment {
         }
     }
 
-    RecyclerView recyclerView;
-     ArtistAdabter artistAdabter;
+    public static RecyclerView artistRV;
+    public static ArtistAdabter artistAdabter;
     ArrayList<Song> artistFragList=new ArrayList<>();
 
     @SuppressLint("MissingInflatedId")
@@ -74,13 +74,13 @@ public class ArtistFrag extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_artist, container, false);
-        recyclerView=view.findViewById(R.id.rvArtistFrag);
+        artistRV =view.findViewById(R.id.rvArtistFrag);
         artistFragList= G.artistList;
         if (!(artistFragList.size()<0)){
             artistAdabter=new ArtistAdabter(artistFragList,getContext(),R.layout.artis_list);
-            recyclerView.setAdapter(artistAdabter);
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            artistRV.setAdapter(artistAdabter);
+            artistRV.setHasFixedSize(true);
+            artistRV.setLayoutManager(new LinearLayoutManager(getContext()));
             artistAdabter.notifyDataSetChanged();
 
         }
