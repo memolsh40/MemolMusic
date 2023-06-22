@@ -2,7 +2,7 @@
 <resources>
 <style parent="Theme.Material3.Dark.NoActionBar" name="Base.Theme.MusicPlayer">
 
-    <item name="colorPrimary">@color/md_theme_dark_primary</item>
+    <item name="colorPrimary">#00687A</item>
 
     <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
 

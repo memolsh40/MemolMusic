@@ -97,7 +97,8 @@ holder.cardView.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         albumDetailsList.clear();
-        MainActivity.setSongs(G.SongList(context));
+        G.albumsList.clear();
+       MainActivity.setSongs(G.SongList(context));
         mainCardView.setVisibility(View.VISIBLE);
         String uri=song.getPath();
         playService.StartMusic(uri);
@@ -132,7 +133,7 @@ mainCardView.setOnClickListener(new View.OnClickListener() {
 
     }
 });
-        holder.btnMore.setOnClickListener(new View.OnClickListener() {
+holder.btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PopupMenu popupMenu=new PopupMenu(context,v);
@@ -144,7 +145,7 @@ mainCardView.setOnClickListener(new View.OnClickListener() {
                         if (item.getItemId()==R.id.delete){
                             deleteFile(position,v);
                             albumAdabter.notifyItemRemoved(position);
-                            albumAdabter.notifyItemRangeChanged(position,G.albums.size());
+                            albumAdabter.notifyItemRangeChanged(position,G.albumsList.size());
                         }
                         return true;
                     }
@@ -164,7 +165,7 @@ mainCardView.setOnClickListener(new View.OnClickListener() {
             notifyItemRemoved(position);
             notifyItemRangeChanged(position,songArrayList.size());
             albumAdabter.notifyItemRemoved(position);
-            albumAdabter.notifyItemRangeChanged(position,G.albums.size());
+            albumAdabter.notifyItemRangeChanged(position,G.albumsList.size());
             Toast.makeText(context, "File deleted", Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(context, "Please allow access to the file", Toast.LENGTH_SHORT).show();

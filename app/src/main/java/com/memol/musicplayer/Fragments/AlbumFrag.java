@@ -1,7 +1,5 @@
 package com.memol.musicplayer.Fragments;
 
-import static com.memol.musicplayer.Fragments.SongsFrag.adapter;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.memol.musicplayer.Adabters.AlbumAdabter;
 import com.memol.musicplayer.G;
+import com.memol.musicplayer.Main.MainActivity;
 import com.memol.musicplayer.Model.Song;
 import com.memol.musicplayer.R;
 
@@ -77,13 +76,14 @@ public class AlbumFrag extends Fragment {
          View view =inflater.inflate(R.layout.fragment_album, container, false);
          recyclerView=view.findViewById(R.id.albumRv);
          recyclerView.setHasFixedSize(true);
-         albumFragList= G.albums;
+         albumFragList= G.albumsList;
+
         if (!(albumFragList.size()<0)){
             albumAdabter=new AlbumAdabter(albumFragList,getContext(),R.layout.album_list);
             recyclerView.setAdapter(albumAdabter);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-            adapter.notifyDataSetChanged();
+            albumAdabter.notifyDataSetChanged();
 
         }
          return view;

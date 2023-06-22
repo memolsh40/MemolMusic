@@ -15,19 +15,21 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class G extends Application {
-    public static ArrayList<Song> albums=new ArrayList<>();
-    int POSITION;
+    public static ArrayList<Song> albumsList=new ArrayList<>();
+    public static ArrayList<Song> artistList=new ArrayList<>();
 
 
     @Override
     public void onCreate() {
         super.onCreate();
 
+
     }
 
     public static ArrayList<Song> SongList(Context context) {
         ArrayList<Song> songArrayList =new ArrayList<>();
-        ArrayList<String> duplicate =new ArrayList<>();
+        ArrayList<String> duplicateAlbum =new ArrayList<>();
+        ArrayList<String> duplicateArtist =new ArrayList<>();
         String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
         String sortOrder = MediaStore.Audio.Media.TITLE + " ASC";
 
@@ -37,7 +39,7 @@ public class G extends Application {
                 MediaStore.Audio.Media.TITLE,
                 MediaStore.Audio.Media.DURATION,
                 MediaStore.Audio.Media.DATA,
-                MediaStore.Audio.Media.ARTIST,
+                MediaStore.Audio.Artists.ARTIST,
                 MediaStore.Audio.Media.ALBUM_ID,
                 MediaStore.Audio.Media._ID
 
@@ -61,9 +63,12 @@ public class G extends Application {
 
             Song song=new Song(album,title,duration,path,artist,albumId,id);
             songArrayList.add(song);
-            if (!duplicate.contains(album)){
-                albums.add(song);
-                duplicate.add(album);
+            if (!duplicateAlbum.contains(album)){
+                albumsList.add(song);
+                duplicateAlbum.add(album);
+            } if (!duplicateArtist.contains(artist)){
+                artistList.add(song);
+                duplicateArtist.add(artist);
             }
 
 

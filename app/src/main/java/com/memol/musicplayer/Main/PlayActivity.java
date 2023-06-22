@@ -70,6 +70,7 @@ public class PlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play);
         SetupView();
         getInitMethodWhenPlay();
+
         mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
         int durationMx=Integer.parseInt(playActList.get(position).getDuration())/1000;
         txtDurationMx.setText(formatted(durationMx));

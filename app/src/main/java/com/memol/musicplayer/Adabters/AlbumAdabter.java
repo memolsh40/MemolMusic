@@ -11,13 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.memol.musicplayer.AlbumDetails;
+import com.memol.musicplayer.Details.AlbumDetails;
+import com.memol.musicplayer.G;
 import com.memol.musicplayer.GlideApp;
 import com.memol.musicplayer.Model.Song;
 import com.memol.musicplayer.R;
@@ -25,7 +25,7 @@ import com.memol.musicplayer.R;
 import java.util.ArrayList;
 
 public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> {
-    private  ArrayList<Song> songArrayList=new ArrayList<>();
+    private  ArrayList<Song> songArrayList;
     private final Context context;
     private int recource;
 
@@ -33,6 +33,7 @@ public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> 
         this.songArrayList = songArrayList;
         this.context = context;
         this.recource = recource;
+
     }
 
     @NonNull
@@ -46,7 +47,8 @@ public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> 
     public void onBindViewHolder(@NonNull AlbumAdabter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Song song=songArrayList.get(position);
         holder.txtAlbum.setText(song.getAlbum());
-        Log.i("AlbumeList",song.getAlbum());
+        holder.txtAlbumInfo.setText(song.getArtist());
+
         new Runnable() {
             @Override
             public void run() {
@@ -63,9 +65,7 @@ public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> 
             @Override
             public void onClick(View v) {
 
-                if (songArrayList.get(position).equals(0)){
-                    Toast.makeText(context, "Not Exists", Toast.LENGTH_SHORT).show();
-                }
+                Log.i("AlbumeSize", String.valueOf(G.albumsList.size()));
                 Intent intent =new Intent(context, AlbumDetails.class);
                 intent.putExtra("albumName",songArrayList.get(position).getAlbum());
                 context.startActivity(intent);
@@ -82,12 +82,14 @@ public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgAlbum;
         TextView txtAlbum;
+      TextView txtAlbumInfo;
 
         CardView albumeCardView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgAlbum=itemView.findViewById(R.id.AlbumImage);
             txtAlbum=itemView.findViewById(R.id.txtAlbum);
+            txtAlbumInfo=itemView.findViewById(R.id.txtAlbumInfo);
             albumeCardView=itemView.findViewById(R.id.AlbumeListCardView);
         }
     }

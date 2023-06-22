@@ -1,4 +1,4 @@
-package com.memol.musicplayer;
+package com.memol.musicplayer.Details;
 
 import android.content.ContentUris;
 import android.net.Uri;
@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.memol.musicplayer.Adabters.AlbumDetailsAdabter;
+import com.memol.musicplayer.G;
+import com.memol.musicplayer.GlideApp;
 import com.memol.musicplayer.Model.Song;
+import com.memol.musicplayer.R;
 
 import java.util.ArrayList;
 

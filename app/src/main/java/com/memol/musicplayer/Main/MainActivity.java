@@ -38,6 +38,7 @@ import com.google.android.material.search.SearchBar;
 import com.google.android.material.tabs.TabLayout;
 import com.memol.musicplayer.Adabters.ViewPagerAdabter;
 import com.memol.musicplayer.Fragments.AlbumFrag;
+import com.memol.musicplayer.Fragments.ArtistFrag;
 import com.memol.musicplayer.Fragments.SongsFrag;
 import com.memol.musicplayer.G;
 import com.memol.musicplayer.GlideApp;
@@ -123,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else if (!shuffleBoolean&&!repeatBoolean){
                         position=((position+1)%songs.size());
+
                     }
 
                     playService.setPosition(position);
@@ -131,6 +133,8 @@ public class MainActivity extends AppCompatActivity {
                     btnPlay_Pause.setIconResource(R.drawable.baseline_pause_24);
                     txtSongName.setText(songs.get(position).getTitle());
                     txtArtistName.setText(songs.get(position).getArtist());
+
+
 
                     new Runnable() {
                         @Override
@@ -242,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
         adabter=new ViewPagerAdabter(MainActivity.this,getSupportFragmentManager());
         adabter.getFragment(new TabItems(new SongsFrag(),"Tracks",getResources().getDrawable(R.drawable.baseline_music_note_24)));
         adabter.getFragment(new TabItems(new AlbumFrag(),"Albums",getResources().getDrawable(R.drawable.baseline_library_music_24)));
-//        adabter.getFragment(new TabItems(new ArtistFrag(),"Artists",getResources().getDrawable(R.drawable.baseline_person_24)));
+        adabter.getFragment(new TabItems(new ArtistFrag(),"Artists",getResources().getDrawable(R.drawable.baseline_person_24)));
 //        adabter.getFragment(new TabItems(new FavouriteFrag(),"Favourites",getResources().getDrawable(R.drawable.baseline_stars_24)));
         viewPager.setAdapter(adabter);
         tabLayout.setupWithViewPager(viewPager);

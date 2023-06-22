@@ -90,7 +90,6 @@ public class PlayService extends Service {
     }
 
     public void StartMusic(String path){
-
         try {
             if (mediaPlayer!=null){
                 mediaPlayer.stop();
@@ -103,11 +102,16 @@ public class PlayService extends Service {
                 mediaPlayer.start();
             }
         }catch (Exception e){
-            Toast.makeText(this, "sorry", Toast.LENGTH_LONG).show();
-            mediaPlayer.stop();
-            mediaPlayer.release();
-            mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse("/storage/emulated/0/Music/Billie_Eilish_everything_i_wanted_Matt_Steffanina_Remix.hd.mp3"));
-            mediaPlayer.start();
+
+            if (mediaPlayer==null){
+                Toast.makeText(this, "Application can not read this music", Toast.LENGTH_LONG).show();
+                Log.i("ReadError",e.getMessage());
+                mediaPlayer=new MediaPlayer();
+
+
+
+            }
+
 
 
         }

@@ -72,7 +72,6 @@ public class SongsFrag extends Fragment {
         View view= inflater.inflate(R.layout.fragment_songs, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.rvSongs);
         recyclerView.setHasFixedSize(true);
-
                 if (!(songs.size()<0)){
                     adapter=new RecyclerAdapter(getContext(),songs,MainHandler);
                     recyclerView.setAdapter(adapter);

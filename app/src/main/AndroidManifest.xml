@@ -23,7 +23,7 @@
         tools:ignore="ObsoleteSdkInt"
         tools:targetApi="33">
         <activity
-            android:name=".AlbumDetails"
+            android:name=".Details.AlbumDetails"
             android:exported="false" />
         <activity
             android:name=".Model.InfoActivity"

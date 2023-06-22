@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="175dp"
-    android:layout_height="205dp"
+    android:layout_height="230dp"
     android:layout_margin="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -28,16 +28,24 @@
     <TextView
         android:id="@+id/txtAlbum"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="22dp"
         android:layout_below="@+id/AlbumeListCardView"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="-1dp"
-        android:layout_marginBottom="1dp"
         android:gravity="center"
         android:maxLines="1"
         android:text="Album"
-        android:textSize="15dp"
+        android:textSize="13dp"
         android:textStyle="bold"
         tools:ignore="TextSizeCheck" />
+    <TextView
+        android:id="@+id/txtAlbumInfo"
+        android:layout_width="match_parent"
+        android:layout_height="23dp"
+        android:layout_below="@+id/txtAlbum"
+        android:gravity="center"
+        android:layout_marginTop="-5dp"
+        android:maxLines="1"
+        android:text="Track"
+        android:textSize="13dp"
+        tools:ignore="DuplicateIds,TextSizeCheck" />
 
 </RelativeLayout>
