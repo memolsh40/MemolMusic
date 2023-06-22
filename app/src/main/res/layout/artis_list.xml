@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginTop="5dp"
+    android:layout_height="wrap_content"
+    android:id="@+id/SongsItem">
+
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewArtistList"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_margin="6dp"
+        android:layout_marginTop="10dp"
+        app:strokeWidth="0dp"
+        app:cardElevation="1dp"
+        android:clickable="true"
+        android:checkable="true"
+
+        tools:ignore="DuplicateIds,MissingConstraints">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardViewArtistList"
+                android:layout_gravity="bottom"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:cardElevation="10dp"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="12dp"
+                android:clickable="true"
+                app:strokeWidth="0dp"
+                android:checkable="true"
+                tools:ignore="MissingConstraints">
+                <ImageView
+                    android:id="@+id/imageArtistList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="center"
+                    android:foregroundGravity="center"
+
+                    android:contentDescription="TODO"
+                    tools:ignore="ContentDescription,HardcodedText,VisualLintBounds" />
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+            <TextView
+                android:id="@+id/txtArtistList"
+                android:layout_width="250dp"
+                android:layout_height="43dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="75dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="ARTIST"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText,TextSizeCheck" />
+
+
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/iconBtnArtist"
+                style="?attr/materialIconButtonStyle"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="355dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="21dp"
+                app:icon="@drawable/baseline_more_vert_24"
+                app:iconGravity="textStart"
+                tools:ignore="ExtraText,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+
+
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
