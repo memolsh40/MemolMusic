@@ -13,6 +13,11 @@ import static com.memol.musicplayer.Main.PlayService.mediaPlayer;
 
 import android.annotation.SuppressLint;
 import android.content.ContentUris;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,10 +25,13 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.palette.graphics.Palette;
 
 import com.google.android.material.button.MaterialButton;
 import com.memol.musicplayer.G;
@@ -36,6 +44,8 @@ import java.util.Timer;
 
 public class PlayActivity extends AppCompatActivity {
     @SuppressLint("StaticFieldLeak")
+    public static LinearLayout playerMcontiner;
+    public static ImageView gradientBG;
     public static SeekBar seekBarBtnShit;
     public static MaterialButton btnBackBtnShit;
     public static MaterialButton btnPlayBtnShit;
@@ -70,7 +80,7 @@ public class PlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play);
         SetupView();
         getInitMethodWhenPlay();
-
+        metaData(playActList.get(position).getPath());
         mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
         int durationMx=Integer.parseInt(playActList.get(position).getDuration())/1000;
         txtDurationMx.setText(formatted(durationMx));
@@ -289,6 +299,7 @@ public class PlayActivity extends AppCompatActivity {
                 btnPlayBtnShit.setIconResource(R.drawable.baseline_pause_24);
             }
         });
+        metaData(playActList.get(position).getPath());
     }
 
     private void playThreadBtn() {
@@ -482,6 +493,7 @@ public class PlayActivity extends AppCompatActivity {
                 btnPlayBtnShit.setIconResource(R.drawable.baseline_pause_24);
             }
         });
+        metaData(playActList.get(position).getPath());
     }
 
 
@@ -654,6 +666,38 @@ public class PlayActivity extends AppCompatActivity {
         txtArtistNameBtnShit=findViewById(R.id.txtMusicArtistBtnShit);
         txtDuration=findViewById(R.id.txtTime);
         txtDurationMx=findViewById(R.id.txtCompletTime);
+        playerMcontiner=findViewById(R.id.play_activity);
+
+    }
+    private void  metaData(String uri){
+        MediaMetadataRetriever retriever =new MediaMetadataRetriever();
+        retriever.setDataSource(uri.toString());
+        byte[] art=retriever.getEmbeddedPicture();
+        Bitmap bitmap;
+        if (art!=null){
+            bitmap= BitmapFactory.decodeByteArray(art,0,art.length);
+            Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+                @Override
+                public void onGenerated(@Nullable Palette palette) {
+                    Palette.Swatch swatch=palette.getMutedSwatch();
+                    if (swatch!=null){
+                       // GradientDrawable gradientDrawable=new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,new int[]{swatch.getRgb(),0x00000000});
+                        GradientDrawable gradientDrawableBg=new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,new int[]{swatch.getRgb(),swatch.getRgb()});
+                       playerMcontiner.setBackground(gradientDrawableBg);
+                        txtArtistNameBtnShit.setTextColor(Color.WHITE);
+                        txtSongNameBtnShit.setTextColor(Color.WHITE);
+
+                    }
+                    else {
+                        playerMcontiner.setBackgroundColor(Color.BLACK);
+
+                    }
+
+                }
+            });
+
+        }
+
     }
 
 

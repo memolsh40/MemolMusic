@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/layout_top_btn"
         android:layout_width="match_parent"
-        android:background="@drawable/gradient_bg"
+        android:background="?attr/android:colorBackground"
         android:layout_alignParentRight="true"
         android:layout_height="50dp">
 
@@ -44,25 +44,34 @@
 
     <RelativeLayout
         android:id="@+id/playCardView"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="10dp"
         android:layout_below="@id/layout_top_btn"
         tools:ignore="MissingConstraints">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewImg"
+            android:layout_gravity="bottom"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            app:cardElevation="10dp"
+            android:elevation="20dp"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="20dp"
+            android:clickable="true"
+            android:checkable="true"
+            app:strokeWidth="0dp"
+            tools:ignore="MissingConstraints">
+            <ImageView
+                android:id="@+id/imageViewbtnShit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_launcher_background" />
+        </com.google.android.material.card.MaterialCardView>
 
-        <ImageView
-            android:id="@+id/imageViewbtnShit"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_launcher_background" />
-        <ImageView
-            android:id="@+id/imageGrd"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:src="@drawable/gradient_bg"
-            android:layout_alignParentBottom="true"
-            tools:ignore="DuplicateIds" />
+
     </RelativeLayout>
 
     <TextView

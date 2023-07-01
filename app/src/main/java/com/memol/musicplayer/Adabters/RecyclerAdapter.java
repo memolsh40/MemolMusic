@@ -8,6 +8,7 @@ import static com.memol.musicplayer.Main.MainActivity.mainCardView;
 import static com.memol.musicplayer.Main.MainActivity.playService;
 import static com.memol.musicplayer.Main.MainActivity.txtArtistName;
 import static com.memol.musicplayer.Main.MainActivity.txtSongName;
+import static com.memol.musicplayer.Main.PlayActivity.playerMcontiner;
 
 import android.content.ContentUris;
 import android.content.Context;
