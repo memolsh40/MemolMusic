@@ -16,12 +16,12 @@
         android:layout_height="60dp"
         app:cardElevation="10dp"
         android:elevation="20dp"
-        android:layout_margin="6dp"
+      android:layout_marginBottom="0dp"
         android:layout_marginTop="10dp"
-        app:cardCornerRadius="33dp"
+        app:cardCornerRadius="0dp"
         android:clickable="true"
         android:checkable="true"
-        app:strokeColor="?attr/colorPrimary"
+        app:strokeWidth="0dp"
         tools:ignore="MissingConstraints">
 
         <RelativeLayout
@@ -36,7 +36,7 @@
                 app:cardElevation="10dp"
                 android:elevation="20dp"
                 android:layout_margin="8dp"
-                app:cardCornerRadius="33dp"
+                app:cardCornerRadius="8dp"
                 android:clickable="true"
                 android:checkable="true"
                 app:strokeWidth="0dp"
@@ -81,7 +81,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="218dp"
+                android:layout_marginEnd="232dp"
                 android:layout_marginBottom="3dp"
                 android:maxLines="1"
                 android:text="Artist Name"

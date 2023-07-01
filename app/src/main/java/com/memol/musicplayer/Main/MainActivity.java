@@ -12,13 +12,18 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.GradientDrawable;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,11 +31,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.palette.graphics.Palette;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.button.MaterialButton;
@@ -87,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("MemolMusic");
         mainCardView.setVisibility(View.INVISIBLE);
+
 
 
         if (CheckPermission()==false){
@@ -178,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
                     }.run();
 
                 }
+                metaData(songs.get(position).getPath());
             }
         });
         btnPlay_Back.setOnClickListener(new View.OnClickListener() {
@@ -238,6 +247,7 @@ public class MainActivity extends AppCompatActivity {
                     }.run();
 
                 }
+                metaData(songs.get(position).getPath());
             }
         });
 
@@ -246,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
         adabter=new ViewPagerAdabter(MainActivity.this,getSupportFragmentManager());
         adabter.getFragment(new TabItems(new SongsFrag(),"Tracks",getResources().getDrawable(R.drawable.baseline_music_note_24)));
         adabter.getFragment(new TabItems(new AlbumFrag(),"Albums",getResources().getDrawable(R.drawable.baseline_library_music_24)));
-        adabter.getFragment(new TabItems(new ArtistFrag(),"Artists",getResources().getDrawable(R.drawable.baseline_person_24)));
+ //       adabter.getFragment(new TabItems(new ArtistFrag(),"Artists",getResources().getDrawable(R.drawable.baseline_person_24)));
 //        adabter.getFragment(new TabItems(new FavouriteFrag(),"Favourites",getResources().getDrawable(R.drawable.baseline_stars_24)));
         viewPager.setAdapter(adabter);
         tabLayout.setupWithViewPager(viewPager);
@@ -345,12 +355,38 @@ public class MainActivity extends AppCompatActivity {
        imgAlbumeArt=findViewById(R.id.imageListMain);
    //searchBar=findViewById(R.id.search_bar);
     }
-    private Bitmap convertImageViewToBitmap(ImageView v){
+    private void  metaData(String uri){
+        MediaMetadataRetriever retriever =new MediaMetadataRetriever();
+        retriever.setDataSource(uri.toString());
+        byte[] art=retriever.getEmbeddedPicture();
+        Bitmap bitmap;
+        if (art!=null){
+            bitmap= BitmapFactory.decodeByteArray(art,0,art.length);
+            Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+                @Override
+                public void onGenerated(@Nullable Palette palette) {
+                    Palette.Swatch swatch=palette.getMutedSwatch();
+                    if (swatch!=null){
+                        GradientDrawable gradientDrawable=new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,new int[]{swatch.getRgb(),0x00000000});
+                        GradientDrawable gradientDrawableBg=new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,new int[]{swatch.getRgb(),swatch.getRgb()});
+                        mainCardView.setBackground(gradientDrawableBg);
+                        txtArtistName.setTextColor(Color.WHITE);
+                        txtSongName.setTextColor(Color.WHITE);}
 
-        Bitmap bm=((BitmapDrawable)v.getDrawable()).getBitmap();
 
-        return bm;
+                    else {
+                        mainCardView.setBackgroundColor(Color.BLACK);
+
+                    }
+
+                }
+            });
+
+        }
+
     }
+
+
 
 
 }

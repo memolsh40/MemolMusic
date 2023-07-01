@@ -13,6 +13,10 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -26,7 +30,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
@@ -77,9 +83,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder,  int position) {
-
         POSITION = position;
         Song song = songArrayList.get(position);
+
         holder.txtMusicName.setText(song.getTitle());
         holder.txtArtistName.setText(song.getArtist());
         new Runnable() {
@@ -92,6 +98,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                         .centerCrop()
                         .fallback(R.drawable.music_blue_night)
                         .into(holder.imageView);
+
             }
         }.run();
 holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +107,7 @@ holder.cardView.setOnClickListener(new View.OnClickListener() {
 
        MainActivity.setSongs(G.SongList(context));
         mainCardView.setVisibility(View.VISIBLE);
+        metaData(songArrayList.get(position).getPath());
         String uri=song.getPath();
         playService.StartMusic(uri);
         playService.setPosition(position);
@@ -117,14 +125,13 @@ holder.cardView.setOnClickListener(new View.OnClickListener() {
                         .centerCrop()
                         .fallback(R.drawable.music_blue_night)
                         .into(imgAlbumeArt);
+
             }
         }.run();
         G.artistList.clear();
         albumDetailsList.clear();
         G.albumsList.clear();
-        Log.i("AlbumeSize", String.valueOf(G.albumsList.size()));
-        Log.i("AlbumeSize", String.valueOf(G.artistList.size()));
-        Log.i("AlbumeSize", String.valueOf(G.SongList(context).size()));
+
     }
 });
 
@@ -207,5 +214,37 @@ holder.btnMore.setOnClickListener(new View.OnClickListener() {
         else
             return position;
     }
+    private void  metaData(String uri){
+        MediaMetadataRetriever retriever =new MediaMetadataRetriever();
+        retriever.setDataSource(uri.toString());
+        byte[] art=retriever.getEmbeddedPicture();
+        Bitmap bitmap;
+        if (art!=null){
+            bitmap= BitmapFactory.decodeByteArray(art,0,art.length);
+            Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+                @Override
+                public void onGenerated(@Nullable Palette palette) {
+                    Palette.Swatch swatch=palette.getMutedSwatch();
+                    if (swatch!=null){
+                        GradientDrawable gradientDrawable=new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,new int[]{swatch.getRgb(),0x00000000});
+                        GradientDrawable gradientDrawableBg=new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,new int[]{swatch.getRgb(),swatch.getRgb()});
+                        mainCardView.setBackground(gradientDrawableBg);
+                        txtSongName.setTextColor(Color.WHITE);
+                        txtArtistName.setTextColor(Color.WHITE);
+                    }
+                    else {
+                        mainCardView.setBackgroundColor(Color.BLACK);
+
+                    }
+
+                }
+            });
+
+        }
+
+    }
+
+
+
 
 }
