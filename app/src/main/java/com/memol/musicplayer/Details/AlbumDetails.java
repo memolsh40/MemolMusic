@@ -31,6 +31,7 @@ public class AlbumDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_details);
         SetupView();
+        G.albumsList.clear();
         generalList= G.SongList(getApplicationContext());
         albumeName=getIntent().getStringExtra("albumName");
         txtAlbumeDetails.setText(albumeName);

@@ -25,13 +25,13 @@ import com.memol.musicplayer.R;
 import java.util.ArrayList;
 
 public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> {
-    private  ArrayList<Song> songArrayList;
+    public static   ArrayList<Song> albumList;
     private final Context context;
     private int recource;
     View view;
 
     public AlbumAdabter(ArrayList<Song> songArrayList, Context context, int recource) {
-        this.songArrayList = songArrayList;
+        this.albumList = songArrayList;
         this.context = context;
         this.recource = recource;
 
@@ -46,7 +46,7 @@ public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull AlbumAdabter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        Song song=songArrayList.get(position);
+        Song song= albumList.get(position);
         holder.txtAlbum.setText(song.getAlbum());
         holder.txtAlbumInfo.setText(song.getArtist());
 
@@ -54,7 +54,7 @@ public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> 
             @Override
             public void run() {
 
-                GlideApp.with(context).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songArrayList.get(position).getAlbumId()))
+                GlideApp.with(context).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), albumList.get(position).getAlbumId()))
                         .error(R.drawable.music_blue_night)
                         .placeholder(R.drawable.music_blue_night)
                         .centerCrop()
@@ -68,15 +68,12 @@ public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> 
             @Override
             public void onClick(View v) {
 
-
                 Intent intent =new Intent(context, AlbumDetails.class);
-                intent.putExtra("albumName",songArrayList.get(position).getAlbum());
+                intent.putExtra("albumName", albumList.get(position).getAlbum());
                 context.startActivity(intent);
-                G.albumsList.clear();
                 Log.i("AlbumeSize", String.valueOf(G.albumsList.size()));
-                Log.i("AlbumeSize", String.valueOf(G.artistList.size()));
                 Log.i("AlbumeSize", String.valueOf(G.SongList(context).size()));
-                G.artistList.clear();
+
 
 
             }
@@ -86,7 +83,7 @@ public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return songArrayList.size();
+        return albumList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -102,6 +102,7 @@
                     style="?attr/materialIconButtonStyle"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    app:iconTint="?attr/colorOnError"
                     app:icon="@drawable/back"
                     app:iconGravity="textStart"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
@@ -112,6 +113,7 @@
                     style="?attr/materialIconButtonStyle"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    app:iconTint="?attr/colorOnError"
                     app:icon="@drawable/_8px"
                     app:iconGravity="textStart"
                     tools:ignore="RelativeOverlap,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
@@ -123,6 +125,7 @@
                     android:layout_height="40dp"
                     android:clickable="true"
                     android:gravity="center"
+                    app:iconTint="?attr/colorOnError"
                     app:icon="@drawable/skipnest"
                     app:iconGravity="textStart"
                     tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
@@ -163,6 +166,7 @@
               android:layout_marginTop="8dp"
               android:layout_toEndOf="@+id/txtMusicName"
               app:icon="@drawable/baseline_search_24"
+              app:iconTint="?attr/colorOnError"
               app:iconGravity="textStart"
               tools:ignore="ExtraText,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
       </androidx.appcompat.widget.Toolbar>

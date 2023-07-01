@@ -1,5 +1,6 @@
 package com.memol.musicplayer.Adabters;
 
+import static com.memol.musicplayer.Adabters.AlbumAdabter.albumList;
 import static com.memol.musicplayer.Adabters.AlbumDetailsAdabter.albumDetailsList;
 import static com.memol.musicplayer.Fragments.AlbumFrag.albumAdabter;
 import static com.memol.musicplayer.Main.MainActivity.btnPlay_Pause;
@@ -105,7 +106,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 holder.cardView.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-
+        G.artistList.clear();
+        albumDetailsList.clear();
+        G.albumsList.clear();
        MainActivity.setSongs(G.SongList(context));
         mainCardView.setVisibility(View.VISIBLE);
         metaData(songArrayList.get(position).getPath());
@@ -129,9 +132,9 @@ holder.cardView.setOnClickListener(new View.OnClickListener() {
 
             }
         }.run();
-        G.artistList.clear();
-        albumDetailsList.clear();
-        G.albumsList.clear();
+
+        Log.i("AlbumeSize", String.valueOf(G.albumsList.size()));
+        Log.i("AlbumeSize", String.valueOf(G.SongList(context).size()));
 
     }
 });
@@ -234,7 +237,7 @@ holder.btnMore.setOnClickListener(new View.OnClickListener() {
                         txtArtistName.setTextColor(Color.WHITE);
                     }
                     else {
-                        mainCardView.setBackgroundColor(Color.BLACK);
+                        mainCardView.setBackgroundColor(Color.GRAY);
 
                     }
 

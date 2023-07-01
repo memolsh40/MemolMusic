@@ -375,7 +375,9 @@ public class MainActivity extends AppCompatActivity {
 
 
                     else {
-                        mainCardView.setBackgroundColor(Color.BLACK);
+                        mainCardView.setBackgroundColor(Color.GRAY);
+                        txtArtistName.setTextColor(Color.WHITE);
+                        txtSongName.setTextColor(Color.WHITE);
 
                     }
 

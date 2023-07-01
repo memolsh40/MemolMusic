@@ -689,8 +689,9 @@ public class PlayActivity extends AppCompatActivity {
 
                     }
                     else {
-                        playerMcontiner.setBackgroundColor(Color.BLACK);
-
+                        playerMcontiner.setBackgroundColor(Color.GRAY);
+                        txtArtistNameBtnShit.setTextColor(Color.WHITE);
+                        txtSongNameBtnShit.setTextColor(Color.WHITE);
                     }
 
                 }

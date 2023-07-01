@@ -159,6 +159,7 @@
             android:gravity="center"
             app:iconSize="28dp"
             app:iconGravity="textStart"
+            app:iconTint="?attr/colorOnError"
             app:icon="@drawable/baseline_shuffle_24"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
@@ -171,6 +172,7 @@
             android:gravity="center"
             app:iconSize="28dp"
             app:iconGravity="textStart"
+            app:iconTint="?attr/colorOnError"
             app:icon="@drawable/back"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
@@ -182,6 +184,7 @@
             android:gravity="center"
             app:iconSize="28dp"
             app:iconGravity="textStart"
+            app:iconTint="?attr/colorOnError"
             app:icon="@drawable/baseline_pause_24"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
@@ -193,6 +196,7 @@
             android:gravity="center"
             app:iconGravity="textStart"
             app:iconSize="28dp"
+            app:iconTint="?attr/colorOnError"
             app:icon="@drawable/skipnest"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
         <com.google.android.material.button.MaterialButton
@@ -203,6 +207,7 @@
             android:layout_marginRight="0dp"
             android:gravity="center"
             app:iconSize="28dp"
+            app:iconTint="?attr/colorOnError"
             app:iconGravity="textStart"
             app:icon="@drawable/baseline_replay_24"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />

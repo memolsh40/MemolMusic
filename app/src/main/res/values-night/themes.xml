@@ -30,7 +30,7 @@
 
     <item name="colorErrorContainer">@color/md_theme_dark_errorContainer</item>
 
-    <item name="colorOnError">@color/md_theme_dark_onError</item>
+    <item name="colorOnError">#FFFFFF</item>
 
     <item name="colorOnErrorContainer">@color/md_theme_dark_onErrorContainer</item>
 
@@ -53,6 +53,8 @@
     <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurface</item>
 
     <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
+
+
 
 </style>
 

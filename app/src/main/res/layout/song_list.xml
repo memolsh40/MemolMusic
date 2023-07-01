@@ -93,6 +93,7 @@
                 android:layout_marginBottom="21dp"
                 android:layout_toEndOf="@+id/txtMusicName"
                 app:icon="@drawable/baseline_more_vert_24"
+                app:iconTint="?attr/colorOnError"
                 app:iconGravity="textStart"
                 tools:ignore="ExtraText,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
