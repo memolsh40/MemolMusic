@@ -76,6 +76,7 @@ public class AlbumDetailsAdabter extends RecyclerView.Adapter<AlbumDetailsAdabte
                 intent.putExtra("sender","albumDetails");
                 intent.putExtra("position",position);
                 context.startActivity(intent);
+                G.SongList(context).clear();
 
 
             }

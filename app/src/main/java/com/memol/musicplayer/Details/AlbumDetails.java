@@ -1,11 +1,17 @@
 package com.memol.musicplayer.Details;
 
+import static com.memol.musicplayer.Adabters.AlbumDetailsAdabter.albumDetailsList;
+import static com.memol.musicplayer.G.albumsList;
+import static com.memol.musicplayer.Main.MainActivity.playService;
+
 import android.content.ContentUris;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.memol.musicplayer.Adabters.AlbumDetailsAdabter;
 import com.memol.musicplayer.G;
 import com.memol.musicplayer.GlideApp;
+import com.memol.musicplayer.Main.MainActivity;
+import com.memol.musicplayer.Main.PlayService;
 import com.memol.musicplayer.Model.Song;
 import com.memol.musicplayer.R;
 
@@ -31,7 +39,7 @@ public class AlbumDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_details);
         SetupView();
-        G.albumsList.clear();
+        albumsList.clear();
         generalList= G.SongList(getApplicationContext());
         albumeName=getIntent().getStringExtra("albumName");
         txtAlbumeDetails.setText(albumeName);
@@ -63,6 +71,14 @@ public class AlbumDetails extends AppCompatActivity {
             adabter=new AlbumDetailsAdabter(songDetails,AlbumDetails.this,R.layout.song_list);
             recyclerView.setAdapter(adabter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (MainActivity.getSongs().size()==G.SongList(getApplicationContext()).size()){
+            albumDetailsList.clear();
         }
     }
 

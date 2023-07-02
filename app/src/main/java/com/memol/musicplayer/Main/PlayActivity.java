@@ -571,6 +571,7 @@ public class PlayActivity extends AppCompatActivity {
            playActList =G.SongList(getApplicationContext());
            btnPlayBtnShit.setIconResource(R.drawable.baseline_pause_24);
            uri = playActList.get(position).getPath();
+           Log.i("position2", String.valueOf(position));
            txtSongNameBtnShit.setText(playActList.get(position).getTitle());
            txtArtistNameBtnShit.setText(playActList.get(position).getArtist());
            new Runnable() {

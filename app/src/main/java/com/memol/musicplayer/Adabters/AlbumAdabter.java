@@ -1,5 +1,7 @@
 package com.memol.musicplayer.Adabters;
 
+import static com.memol.musicplayer.Main.MainActivity.playService;
+
 import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.content.Context;
@@ -19,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.memol.musicplayer.Details.AlbumDetails;
 import com.memol.musicplayer.G;
 import com.memol.musicplayer.GlideApp;
+import com.memol.musicplayer.Main.MainActivity;
+import com.memol.musicplayer.Main.PlayService;
 import com.memol.musicplayer.Model.Song;
 import com.memol.musicplayer.R;
 
@@ -73,6 +77,7 @@ public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> 
                 context.startActivity(intent);
                 Log.i("AlbumeSize", String.valueOf(G.albumsList.size()));
                 Log.i("AlbumeSize", String.valueOf(G.SongList(context).size()));
+                Log.i("AlbumeSize", String.valueOf(playService.getPosition()));
 
 
 

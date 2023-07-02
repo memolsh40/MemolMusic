@@ -106,18 +106,22 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 holder.cardView.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        G.artistList.clear();
+        Log.i("AlbumeSize", String.valueOf(G.albumsList.size()));
+        Log.i("AlbumeSize", String.valueOf(G.SongList(context).size())+"\n-------\n");
+        playService.setPosition(position);
         albumDetailsList.clear();
-        G.albumsList.clear();
        MainActivity.setSongs(G.SongList(context));
+       albumList.clear();
         mainCardView.setVisibility(View.VISIBLE);
         metaData(songArrayList.get(position).getPath());
         String uri=song.getPath();
         playService.StartMusic(uri);
-        playService.setPosition(position);
         btnPlay_Pause.setIconResource(R.drawable.baseline_pause_24);
         txtSongName.setText(song.getTitle());
         txtArtistName.setText(song.getArtist());
+        Log.i("AlbumeSize", String.valueOf(G.albumsList.size()));
+        Log.i("AlbumeSize", String.valueOf(G.SongList(context).size()));
+        Log.i("AlbumeSize", String.valueOf(playService.getPosition()));
 
         new Runnable() {
             @Override
@@ -133,8 +137,7 @@ holder.cardView.setOnClickListener(new View.OnClickListener() {
             }
         }.run();
 
-        Log.i("AlbumeSize", String.valueOf(G.albumsList.size()));
-        Log.i("AlbumeSize", String.valueOf(G.SongList(context).size()));
+
 
     }
 });
@@ -144,10 +147,11 @@ holder.cardView.setOnClickListener(new View.OnClickListener() {
 mainCardView.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-
         Intent intent =new Intent(context,PlayActivity.class);
         intent.putExtra("position",playService.getPosition());
         context.startActivity(intent);
+        Log.i("AlbumeSize", String.valueOf(playService.getPosition()));
+
 
     }
 });

@@ -1,5 +1,6 @@
 package com.memol.musicplayer.Main;
 
+import static com.memol.musicplayer.Adabters.AlbumAdabter.albumList;
 import static com.memol.musicplayer.Main.PlayActivity.playActList;
 import static com.memol.musicplayer.Main.PlayService.mediaPlayer;
 
@@ -126,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 position=playService.getPosition();
+                albumList.clear();
                 if (mediaPlayer.isPlaying()){
                     if (shuffleBoolean&&!repeatBoolean){
                         position=G.getRandom(playActList.size()-1);
@@ -187,6 +189,8 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 metaData(songs.get(position).getPath());
+                Log.i("AlbumeSize", String.valueOf(G.albumsList.size()));
+                Log.i("AlbumeSize", String.valueOf(G.SongList(getApplicationContext()).size()));
             }
         });
         btnPlay_Back.setOnClickListener(new View.OnClickListener() {
