@@ -18,11 +18,9 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.memol.musicplayer.Details.AlbumDetails;
 import com.memol.musicplayer.G;
-import com.memol.musicplayer.GlideApp;
-import com.memol.musicplayer.Main.MainActivity;
-import com.memol.musicplayer.Main.PlayService;
 import com.memol.musicplayer.Model.Song;
 import com.memol.musicplayer.R;
 
@@ -58,12 +56,11 @@ public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> 
             @Override
             public void run() {
 
-                GlideApp.with(context).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), albumList.get(position).getAlbumId()))
+                Glide.with(context).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), albumList.get(position).getAlbumId()))
                         .error(R.drawable.music_blue_night)
                         .placeholder(R.drawable.music_blue_night)
                         .centerCrop()
                         .fallback(R.drawable.music_blue_night)
-
                         .into(holder.imgAlbum);
 
             }
@@ -75,9 +72,11 @@ public class AlbumAdabter extends RecyclerView.Adapter<AlbumAdabter.ViewHolder> 
                 Intent intent =new Intent(context, AlbumDetails.class);
                 intent.putExtra("albumName", albumList.get(position).getAlbum());
                 context.startActivity(intent);
+
                 Log.i("AlbumeSize", String.valueOf(G.albumsList.size()));
                 Log.i("AlbumeSize", String.valueOf(G.SongList(context).size()));
                 Log.i("AlbumeSize", String.valueOf(playService.getPosition()));
+
 
 
 

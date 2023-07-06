@@ -21,10 +21,12 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
+import com.memol.musicplayer.AppGlide;
 import com.memol.musicplayer.G;
-import com.memol.musicplayer.GlideApp;
-import com.memol.musicplayer.Main.MainActivity;
+
+
 import com.memol.musicplayer.Main.PlayActivity;
 import com.memol.musicplayer.Model.Song;
 import com.memol.musicplayer.R;
@@ -41,6 +43,7 @@ public class AlbumDetailsAdabter extends RecyclerView.Adapter<AlbumDetailsAdabte
         this.albumDetailsList = albumDetailsList;
         this.context = context;
         this.recource = recource;
+
     }
 
     @NonNull
@@ -60,7 +63,7 @@ public class AlbumDetailsAdabter extends RecyclerView.Adapter<AlbumDetailsAdabte
             @Override
             public void run() {
 
-                GlideApp.with(context).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), albumDetailsList.get(position).getAlbumId()))
+                Glide.with(context).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), albumDetailsList.get(position).getAlbumId()))
                         .error(R.drawable.music_blue_night)
                         .placeholder(R.drawable.music_blue_night)
                         .centerCrop()

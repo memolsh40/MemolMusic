@@ -1,6 +1,7 @@
 package com.memol.musicplayer.Main;
 
 import static com.memol.musicplayer.Adabters.AlbumDetailsAdabter.albumDetailsList;
+import static com.memol.musicplayer.Adabters.RecyclerAdapter.mFiles;
 import static com.memol.musicplayer.Main.MainActivity.btnPlay_Pause;
 import static com.memol.musicplayer.Main.MainActivity.imgAlbumeArt;
 import static com.memol.musicplayer.Main.MainActivity.mainCardView;
@@ -33,16 +34,16 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.palette.graphics.Palette;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.memol.musicplayer.G;
-import com.memol.musicplayer.GlideApp;
 import com.memol.musicplayer.Model.Song;
 import com.memol.musicplayer.R;
 
 import java.util.ArrayList;
 import java.util.Timer;
 
-public class PlayActivity extends AppCompatActivity {
+public class PlayActivity extends AppCompatActivity implements ActionPlaying {
     @SuppressLint("StaticFieldLeak")
     public static LinearLayout playerMcontiner;
     public static ImageView gradientBG;
@@ -62,6 +63,7 @@ public class PlayActivity extends AppCompatActivity {
     public static  TextView txtDuration;
     public static  TextView txtDurationMx;
     Handler handler=new Handler();
+
 
     Thread playThread;
     Thread nextThread;
@@ -169,11 +171,13 @@ public class PlayActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+
         prevThreadBtn();
         playThreadBtn();
         nextThreadBtn();
         super.onResume();
     }
+
 
     private void nextThreadBtn() {
         nextThread=new Thread(new Runnable() {
@@ -189,7 +193,7 @@ public class PlayActivity extends AppCompatActivity {
         });nextThread.start();
     }
 
-    private   void nextBtnClicked() {
+    public void nextBtnClicked() {
         if (mediaPlayer.isPlaying()){
             if (shuffleBoolean&&!repeatBoolean){
                 position=G.getRandom(playActList.size()-1);
@@ -222,13 +226,13 @@ public class PlayActivity extends AppCompatActivity {
                 @Override
                 public void run() {
 
-                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
+                    Glide.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                             .error(R.drawable.music_blue_night)
                             .placeholder(R.drawable.music_blue_night)
                             .centerCrop()
                             .fallback(R.drawable.music_blue_night)
                             .into(imageViewBtnShit);
-                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
+                    Glide.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                             .error(R.drawable.music_blue_night)
                             .placeholder(R.drawable.music_blue_night)
                             .centerCrop()
@@ -270,13 +274,13 @@ public class PlayActivity extends AppCompatActivity {
                 @Override
                 public void run() {
 
-                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
+                    Glide.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                             .error(R.drawable.music_blue_night)
                             .placeholder(R.drawable.music_blue_night)
                             .centerCrop()
                             .fallback(R.drawable.music_blue_night)
                             .into(imageViewBtnShit);
-                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
+                    Glide.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                             .error(R.drawable.music_blue_night)
                             .placeholder(R.drawable.music_blue_night)
                             .centerCrop()
@@ -322,7 +326,7 @@ public class PlayActivity extends AppCompatActivity {
         });playThread.start();
     }
 
-    private void playPauseBtnClicked() {
+    public void playPauseBtnClicked() {
         if(mediaPlayer.isPlaying()){
             mediaPlayer.pause();
             btnPlayBtnShit.setIconResource(R.drawable._8px);
@@ -412,13 +416,13 @@ public class PlayActivity extends AppCompatActivity {
                 @Override
                 public void run() {
 
-                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
+                    Glide.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                             .error(R.drawable.music_blue_night)
                             .placeholder(R.drawable.music_blue_night)
                             .centerCrop()
                             .fallback(R.drawable.music_blue_night)
                             .into(imageViewBtnShit);
-                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
+                    Glide.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                             .error(R.drawable.music_blue_night)
                             .placeholder(R.drawable.music_blue_night)
                             .centerCrop()
@@ -465,13 +469,13 @@ public class PlayActivity extends AppCompatActivity {
                 @Override
                 public void run() {
 
-                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
+                    Glide.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                             .error(R.drawable.music_blue_night)
                             .placeholder(R.drawable.music_blue_night)
                             .centerCrop()
                             .fallback(R.drawable.music_blue_night)
                             .into(imageViewBtnShit);
-                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
+                    Glide.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                             .error(R.drawable.music_blue_night)
                             .placeholder(R.drawable.music_blue_night)
                             .centerCrop()
@@ -512,7 +516,7 @@ public class PlayActivity extends AppCompatActivity {
                 @Override
                 public void run() {
 
-                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
+                    Glide.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                             .error(R.drawable.music_blue_night)
                             .placeholder(R.drawable.music_blue_night)
                             .centerCrop()
@@ -532,7 +536,7 @@ public class PlayActivity extends AppCompatActivity {
                 @Override
                 public void run() {
 
-                    GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
+                    Glide.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                             .error(R.drawable.music_blue_night)
                             .placeholder(R.drawable.music_blue_night)
                             .centerCrop()
@@ -542,7 +546,7 @@ public class PlayActivity extends AppCompatActivity {
             }.run();
         }
         else {
-            playActList =MainActivity.getSongs();
+            playActList =mFiles;
         }
        if (mediaPlayer.isPlaying()&&albumDetailsList.size()>0) {
            playActList=albumDetailsList;
@@ -555,7 +559,7 @@ public class PlayActivity extends AppCompatActivity {
                @Override
                public void run() {
 
-                   GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
+                   Glide.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                            .error(R.drawable.music_blue_night)
                            .placeholder(R.drawable.music_blue_night)
                            .centerCrop()
@@ -568,7 +572,7 @@ public class PlayActivity extends AppCompatActivity {
 
        }
        if (mediaPlayer.isPlaying()&&albumDetailsList.size()==0) {
-           playActList =G.SongList(getApplicationContext());
+           playActList =mFiles;
            btnPlayBtnShit.setIconResource(R.drawable.baseline_pause_24);
            uri = playActList.get(position).getPath();
            Log.i("position2", String.valueOf(position));
@@ -578,7 +582,7 @@ public class PlayActivity extends AppCompatActivity {
                @Override
                public void run() {
 
-                   GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
+                   Glide.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                            .error(R.drawable.music_blue_night)
                            .placeholder(R.drawable.music_blue_night)
                            .centerCrop()
@@ -600,7 +604,7 @@ public class PlayActivity extends AppCompatActivity {
                @Override
                public void run() {
 
-                   GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
+                   Glide.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                            .error(R.drawable.music_blue_night)
                            .placeholder(R.drawable.music_blue_night)
                            .centerCrop()
@@ -614,7 +618,7 @@ public class PlayActivity extends AppCompatActivity {
 
        }
        if (!mediaPlayer.isPlaying()&&albumDetailsList.size()==0){
-           playActList =G.SongList(getApplicationContext());
+           playActList =mFiles;
            btnPlayBtnShit.setIconResource(R.drawable._8px);
            uri = playActList.get(position).getPath();
            txtSongNameBtnShit.setText(playActList.get(position).getTitle());
@@ -623,7 +627,7 @@ public class PlayActivity extends AppCompatActivity {
                @Override
                public void run() {
 
-                   GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
+                   Glide.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), playActList.get(position).getAlbumId()))
                            .error(R.drawable.music_blue_night)
                            .placeholder(R.drawable.music_blue_night)
                            .centerCrop()

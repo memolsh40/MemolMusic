@@ -1,6 +1,5 @@
 package com.memol.musicplayer.Main;
 
-import static com.memol.musicplayer.Adabters.AlbumAdabter.albumList;
 import static com.memol.musicplayer.Main.PlayActivity.playActList;
 import static com.memol.musicplayer.Main.PlayService.mediaPlayer;
 
@@ -11,11 +10,11 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
@@ -34,6 +33,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
@@ -41,15 +41,13 @@ import androidx.core.content.ContextCompat;
 import androidx.palette.graphics.Palette;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.search.SearchBar;
 import com.google.android.material.tabs.TabLayout;
 import com.memol.musicplayer.Adabters.ViewPagerAdabter;
 import com.memol.musicplayer.Fragments.AlbumFrag;
-import com.memol.musicplayer.Fragments.ArtistFrag;
 import com.memol.musicplayer.Fragments.SongsFrag;
 import com.memol.musicplayer.G;
-import com.memol.musicplayer.GlideApp;
 import com.memol.musicplayer.Model.InfoActivity;
 import com.memol.musicplayer.Model.Song;
 import com.memol.musicplayer.Model.TabItems;
@@ -58,14 +56,11 @@ import com.memol.musicplayer.R;
 import java.util.ArrayList;
 
 @SuppressWarnings("deprecation")
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;
-
-    MaterialButton btnSearch;
-    SearchBar searchBar;
   public static   CardView mainCardView;
    public static MaterialButton btnPlay_Back;
    public static MaterialButton btnPlay_Pause;
@@ -76,15 +71,14 @@ public class MainActivity extends AppCompatActivity {
    public static android.os.Handler MainHandler=new Handler();
     public static boolean shuffleBoolean =false,repeatBoolean=false;
 
-  public static PlayService playService;
+
   ViewPagerAdabter adabter;
   public static ArrayList<Song> songs;
+    public static PlayService playService;
 
 
   String uri;
   int position;
-
-
 
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
@@ -127,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 position=playService.getPosition();
-                albumList.clear();
                 if (mediaPlayer.isPlaying()){
                     if (shuffleBoolean&&!repeatBoolean){
                         position=G.getRandom(playActList.size()-1);
@@ -150,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
 
-                            GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
+                            Glide.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
                                     .error(R.drawable.music_blue_night)
                                     .placeholder(R.drawable.music_blue_night)
                                     .centerCrop()
@@ -177,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
 
-                            GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
+                            Glide.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
                                     .error(R.drawable.music_blue_night)
                                     .placeholder(R.drawable.music_blue_night)
                                     .centerCrop()
@@ -189,8 +182,9 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 metaData(songs.get(position).getPath());
-                Log.i("AlbumeSize", String.valueOf(G.albumsList.size()));
-                Log.i("AlbumeSize", String.valueOf(G.SongList(getApplicationContext()).size()));
+                Log.i("AlbumeSize", String.valueOf(G.albumsList.size())+"   1");
+
+
             }
         });
         btnPlay_Back.setOnClickListener(new View.OnClickListener() {
@@ -214,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
 
-                            GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
+                            Glide.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
                                     .error(R.drawable.music_blue_night)
                                     .placeholder(R.drawable.music_blue_night)
                                     .centerCrop()
@@ -222,7 +216,6 @@ public class MainActivity extends AppCompatActivity {
                                     .into(imgAlbumeArt);
                         }
                     }.run();
-
                 }
                 else {
                     if (shuffleBoolean&&!repeatBoolean){
@@ -241,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
 
-                            GlideApp.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
+                            Glide.with(getApplicationContext()).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songs.get(position).getAlbumId()))
                                     .error(R.drawable.music_blue_night)
                                     .placeholder(R.drawable.music_blue_night)
                                     .centerCrop()
@@ -252,6 +245,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 metaData(songs.get(position).getPath());
+                Log.i("AlbumeSize", String.valueOf(G.albumsList.size())+"   1");
             }
         });
 
@@ -269,6 +263,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent=new Intent(MainActivity.this,PlayService.class);
+        bindService(intent,serviceConnection,BIND_AUTO_CREATE);
+
+    }
+
 
 
     public static ArrayList<Song> getSongs() {
@@ -302,15 +305,36 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        new MenuInflater(this).inflate(R.menu.toolbar_menu,menu);
 
+        new MenuInflater(this).inflate(R.menu.toolbar_menu,menu);
+        getMenuInflater().inflate(R.menu.search,menu);
+        MenuItem menuItem=menu.findItem(R.id.btnSearch);
+        SearchView searchView= (SearchView) menuItem.getActionView();
+        searchView.setOnQueryTextListener(this);
         return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        String userInput =newText.toLowerCase();
+        ArrayList<Song> myFiles=new ArrayList<>();
+        for (Song song:songs){
+            if (song.getPath().toLowerCase().contains(userInput)){
+                myFiles.add(song);
+            }
+        }
+        SongsFrag.Tracksadapter.updateList(myFiles);
+    return true;
     }
 
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        SharedPreferences.Editor editor=getSharedPreferences(G.MY_SORT_PREF,MODE_PRIVATE).edit();
         if (item.getItemId()==R.id.exit){
              finish();
         }
@@ -318,38 +342,44 @@ public class MainActivity extends AppCompatActivity {
              Intent intent=new Intent(MainActivity.this, InfoActivity.class);
              startActivity(intent);
         }
+        if (item.getItemId()==R.id.by_name){
+             editor.putString("sorting","sortByName");
+             editor.apply();
+             this.recreate();
+        }
+        if (item.getItemId()==R.id.by_date){
+            editor.putString("sorting","sortByDate");
+            editor.apply();
+            this.recreate();
+        }
+        if (item.getItemId()==R.id.by_size){
+            editor.putString("sorting","sortBySize");
+            editor.apply();
+            this.recreate();
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
-
+ServiceConnection serviceConnection=new ServiceConnection() {
+    @Override
+    public void onServiceConnected(ComponentName name, IBinder service) {
+        PlayService.MyBinder myBinder= (PlayService.MyBinder) service;
+        playService=myBinder.getService();
+    }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        Intent intent=new Intent(MainActivity.this,PlayService.class);
-        bindService(intent,serviceConnection,BIND_AUTO_CREATE);
-
+    public void onServiceDisconnected(ComponentName name) {
     }
-    ServiceConnection serviceConnection=new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-                PlayService.MyBinder myBinder= (PlayService.MyBinder) service;
-                 playService=myBinder.getService();
-        }
+};
 
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
 
-        }
-    };
 
 
     private void SetupView() {
        toolbar=findViewById(R.id.toolbar);
        tabLayout=findViewById(R.id.tabbar);
        viewPager=findViewById(R.id.fragContainer);
-       btnSearch=findViewById(R.id.btnSearchIcon);
         mainCardView=findViewById(R.id.playCardView);
        btnPlay_Pause=findViewById(R.id.btnPlay);
        btnPlay_Next=findViewById(R.id.btnNext);
@@ -391,7 +421,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
 
 
 

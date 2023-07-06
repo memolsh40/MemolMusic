@@ -14,10 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.memol.musicplayer.GlideApp;
+import com.bumptech.glide.Glide;
 import com.memol.musicplayer.Model.Song;
 import com.memol.musicplayer.R;
-
 import java.util.ArrayList;
 
 public class ArtistAdabter extends RecyclerView.Adapter<ArtistAdabter.ViewHolder> {
@@ -48,7 +47,7 @@ public class ArtistAdabter extends RecyclerView.Adapter<ArtistAdabter.ViewHolder
             @Override
             public void run() {
 
-                GlideApp.with(context).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songArrayList.get(position).getAlbumId()))
+                Glide.with(context).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songArrayList.get(position).getAlbumId()))
                         .error(R.drawable.music_blue_night)
                         .placeholder(R.drawable.music_blue_night)
                         .centerCrop()

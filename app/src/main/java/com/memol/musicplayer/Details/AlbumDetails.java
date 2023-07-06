@@ -2,11 +2,10 @@ package com.memol.musicplayer.Details;
 
 import static com.memol.musicplayer.Adabters.AlbumDetailsAdabter.albumDetailsList;
 import static com.memol.musicplayer.G.albumsList;
-import static com.memol.musicplayer.Main.MainActivity.playService;
-
 import android.content.ContentUris;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,9 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.memol.musicplayer.Adabters.AlbumDetailsAdabter;
 import com.memol.musicplayer.G;
-import com.memol.musicplayer.GlideApp;
 import com.memol.musicplayer.Main.MainActivity;
 import com.memol.musicplayer.Main.PlayService;
 import com.memol.musicplayer.Model.Song;
@@ -39,7 +38,6 @@ public class AlbumDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_details);
         SetupView();
-        albumsList.clear();
         generalList= G.SongList(getApplicationContext());
         albumeName=getIntent().getStringExtra("albumName");
         txtAlbumeDetails.setText(albumeName);
@@ -54,7 +52,7 @@ public class AlbumDetails extends AppCompatActivity {
             @Override
             public void run() {
 
-                GlideApp.with(AlbumDetails.this).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songDetails.get(0).getAlbumId()))
+                Glide.with(AlbumDetails.this).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songDetails.get(0).getAlbumId()))
                         .error(R.drawable.music_blue_night)
                         .placeholder(R.drawable.music_blue_night)
                         .centerCrop()
@@ -72,6 +70,7 @@ public class AlbumDetails extends AppCompatActivity {
             recyclerView.setAdapter(adabter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
         }
+        albumsList.clear();
     }
 
     @Override

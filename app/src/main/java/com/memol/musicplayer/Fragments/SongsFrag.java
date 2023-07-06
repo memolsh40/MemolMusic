@@ -63,7 +63,7 @@ public class SongsFrag extends Fragment {
         }
     }
     RecyclerView recyclerView;
-   public static RecyclerAdapter adapter;
+    public static RecyclerAdapter Tracksadapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,11 +73,11 @@ public class SongsFrag extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.rvSongs);
         recyclerView.setHasFixedSize(true);
                 if (!(songs.size()<0)){
-                    adapter=new RecyclerAdapter(getContext(),songs,MainHandler);
-                    recyclerView.setAdapter(adapter);
+                    Tracksadapter =new RecyclerAdapter(getContext(),songs,MainHandler);
+                    recyclerView.setAdapter(Tracksadapter);
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    adapter.notifyDataSetChanged();
+                    Tracksadapter.notifyDataSetChanged();
 
                 }
 

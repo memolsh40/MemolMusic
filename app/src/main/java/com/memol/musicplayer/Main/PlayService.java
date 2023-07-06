@@ -29,6 +29,7 @@ public class PlayService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
+        Log.i("Bind","Method");
         return binder;
     }
 
@@ -96,7 +97,6 @@ public class PlayService extends Service {
                 mediaPlayer.release();
                 mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(path));
                 mediaPlayer.start();
-                Log.i("mediaPlayer",path);
             } else {
                 mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(path));
                 mediaPlayer.start();
@@ -105,7 +105,6 @@ public class PlayService extends Service {
 
             if (mediaPlayer==null){
                 Toast.makeText(this, "Application can not read this music", Toast.LENGTH_LONG).show();
-                Log.i("ReadError",e.getMessage());
                 mediaPlayer=new MediaPlayer();
 
 

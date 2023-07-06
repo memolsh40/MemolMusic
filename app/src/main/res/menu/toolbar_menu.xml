@@ -2,12 +2,30 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
+
+    <item android:id="@+id/sort_options"
+        android:title="Sort"
+        android:icon="@drawable/baseline_search_24"
+        app:showAsAction="never">
+        <menu>
+            <item android:id="@+id/by_name"
+                android:title="Name"
+                app:showAsAction="never"/>
+            <item android:id="@+id/by_date"
+                android:title="Date"
+                app:showAsAction="never"/>
+            <item android:id="@+id/by_size"
+                android:title="Size"
+                app:showAsAction="never"/>
+        </menu>
+
+    </item>
     <item android:id="@+id/info"
         android:title="Info"
         android:icon="@drawable/baseline_search_24"
-       />
+        />
     <item android:id="@+id/exit"
         android:title="Exit"
         android:icon="@drawable/baseline_search_24"
-       />
+        />
 </menu>

@@ -9,7 +9,7 @@ import static com.memol.musicplayer.Main.MainActivity.mainCardView;
 import static com.memol.musicplayer.Main.MainActivity.playService;
 import static com.memol.musicplayer.Main.MainActivity.txtArtistName;
 import static com.memol.musicplayer.Main.MainActivity.txtSongName;
-import static com.memol.musicplayer.Main.PlayActivity.playerMcontiner;
+
 
 import android.content.ContentUris;
 import android.content.Context;
@@ -37,9 +37,9 @@ import androidx.cardview.widget.CardView;
 import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.memol.musicplayer.G;
-import com.memol.musicplayer.GlideApp;
 import com.memol.musicplayer.Main.MainActivity;
 import com.memol.musicplayer.Main.PlayActivity;
 import com.memol.musicplayer.Model.Song;
@@ -50,8 +50,9 @@ import java.util.ArrayList;
 
 @SuppressWarnings("ALL")
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
+
     Context context;
-    ArrayList<Song> songArrayList;
+    public static ArrayList<Song> mFiles;
     int count;
     public static int POSITION;
     Bitmap bitmap;
@@ -63,7 +64,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     public RecyclerAdapter(Context context, ArrayList<Song> songs, android.os.Handler handler) {
         this.context=context;
-        this.songArrayList=songs;
+        this.mFiles =songs;
         this.handler=handler;
 
     }
@@ -86,7 +87,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder,  int position) {
         POSITION = position;
-        Song song = songArrayList.get(position);
+        Song song = mFiles.get(position);
 
         holder.txtMusicName.setText(song.getTitle());
         holder.txtArtistName.setText(song.getArtist());
@@ -94,7 +95,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             @Override
             public void run() {
 
-                GlideApp.with(context).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songArrayList.get(position).getAlbumId()))
+                Glide.with(context).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), mFiles.get(position).getAlbumId()))
                         .error(R.drawable.music_blue_night)
                         .placeholder(R.drawable.music_blue_night)
                         .centerCrop()
@@ -113,7 +114,7 @@ holder.cardView.setOnClickListener(new View.OnClickListener() {
        MainActivity.setSongs(G.SongList(context));
        albumList.clear();
         mainCardView.setVisibility(View.VISIBLE);
-        metaData(songArrayList.get(position).getPath());
+        metaData(mFiles.get(position).getPath());
         String uri=song.getPath();
         playService.StartMusic(uri);
         btnPlay_Pause.setIconResource(R.drawable.baseline_pause_24);
@@ -127,7 +128,7 @@ holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void run() {
 
-                GlideApp.with(context).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), songArrayList.get(position).getAlbumId()))
+                Glide.with(context).load(ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), mFiles.get(position).getAlbumId()))
                         .error(R.drawable.music_blue_night)
                         .placeholder(R.drawable.music_blue_night)
                         .centerCrop()
@@ -150,7 +151,7 @@ mainCardView.setOnClickListener(new View.OnClickListener() {
         Intent intent =new Intent(context,PlayActivity.class);
         intent.putExtra("position",playService.getPosition());
         context.startActivity(intent);
-        Log.i("AlbumeSize", String.valueOf(playService.getPosition()));
+
 
 
     }
@@ -178,14 +179,14 @@ holder.btnMore.setOnClickListener(new View.OnClickListener() {
 
     private void deleteFile(int position, View v) {
         Uri contentUri=ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                Long.parseLong(songArrayList.get(position).getId()));
-        File file=new File(songArrayList.get(position).getPath());
+                Long.parseLong(mFiles.get(position).getId()));
+        File file=new File(mFiles.get(position).getPath());
         boolean deleted=file.delete();
         if (deleted){
             context.getContentResolver().delete(contentUri,null,null);
-            songArrayList.remove(position);
+            mFiles.remove(position);
             notifyItemRemoved(position);
-            notifyItemRangeChanged(position,songArrayList.size());
+            notifyItemRangeChanged(position, mFiles.size());
             albumAdabter.notifyItemRemoved(position);
             albumAdabter.notifyItemRangeChanged(position,G.albumsList.size());
             Toast.makeText(context, "File deleted", Toast.LENGTH_SHORT).show();
@@ -195,7 +196,7 @@ holder.btnMore.setOnClickListener(new View.OnClickListener() {
     }
     @Override
     public int getItemCount() {
-        return songArrayList.size();
+        return mFiles.size();
     }
 
     public static class MyViewHolder  extends RecyclerView.ViewHolder{
@@ -218,7 +219,7 @@ holder.btnMore.setOnClickListener(new View.OnClickListener() {
 
     private int getPos (int position) {
         if(position < 0)
-            return songArrayList.size()-1;
+            return mFiles.size()-1;
         else
             return position;
     }
@@ -250,6 +251,11 @@ holder.btnMore.setOnClickListener(new View.OnClickListener() {
 
         }
 
+    }
+    public void updateList(ArrayList<Song> musicFilesArrayList){
+        mFiles =new ArrayList<>();
+        mFiles.addAll(musicFilesArrayList);
+        notifyDataSetChanged();
     }
 
 
