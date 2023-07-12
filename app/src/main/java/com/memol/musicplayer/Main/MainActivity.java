@@ -19,10 +19,8 @@ import android.graphics.drawable.GradientDrawable;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,7 +35,6 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.palette.graphics.Palette;
 import androidx.viewpager.widget.ViewPager;
 
@@ -79,6 +76,16 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
   String uri;
   int position;
+    String[] PERMISSIONS={Manifest.permission.READ_MEDIA_AUDIO,
+            Manifest.permission.POST_NOTIFICATIONS
+     };
+
+
+//    public void Permissions(Activity activity){
+//        if (ActivityCompat.checkSelfPermission(activity, notifycationsPer[0])!= PackageManager.PERMISSION_GRANTED){
+//            ActivityCompat.requestPermissions(activity,notifycationsPer,1);
+//        }
+//    }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
@@ -89,19 +96,20 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("MemolMusic");
         mainCardView.setVisibility(View.INVISIBLE);
+        while (!hasPermissions(MainActivity.this,PERMISSIONS)){
+            ActivityCompat.requestPermissions(MainActivity.this,PERMISSIONS,5);
 
 
-
-        if (CheckPermission()==false){
-            requestPermissions();
-            if (!Environment.isExternalStorageManager()){
-                Intent intent = new Intent();
-                intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                Uri uri = Uri.fromParts("package",this.getPackageName(),null);
-                intent.setData(uri);
-                startActivity(intent);
-            }
         }
+        FillSongs(MainActivity.this);
+
+
+
+
+
+
+
+
 
         btnPlay_Pause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,8 +190,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
                 }
                 metaData(songs.get(position).getPath());
-                Log.i("AlbumeSize", String.valueOf(G.albumsList.size())+"   1");
-
 
             }
         });
@@ -286,21 +292,19 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         songs= G.SongList(context);
     }
 
-    private boolean CheckPermission() {
-        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED){
-            return true;
-        }else {
-            return false;
-        }
-    }
-    void requestPermissions(){
 
-        while (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_MEDIA_AUDIO) !=PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.READ_MEDIA_AUDIO},2);
-        }
-        FillSongs(MainActivity.this);
 
+    private boolean hasPermissions(Context context,String... PERMISSIONS){
+        if (context!=null&&PERMISSIONS !=null){
+           for (String permissions:PERMISSIONS){
+               if (ActivityCompat.checkSelfPermission(context,permissions)!=PackageManager.PERMISSION_GRANTED){
+                   return false;
+               }
+           }
+        }
+        return true;
     }
+
 
 
     @Override

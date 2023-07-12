@@ -1,7 +1,8 @@
 package com.memol.musicplayer.Main;
 
+import static com.memol.musicplayer.G.CHANNEL_ID_1;
+
 import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
@@ -43,7 +44,6 @@ public class PlayService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        startForeground(1000,createNotification());
         mediaPlayer.start();
         return START_STICKY;
     }
@@ -57,21 +57,16 @@ public class PlayService extends Service {
         mediaPlayer.stop();
     }
 
-    public Notification createNotification(){
-        NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        NotificationChannel notificationChannel=null;
-        notificationChannel=new NotificationChannel("MyNotifiChannel","MemolMusic",NotificationManager.IMPORTANCE_HIGH);
-        notificationChannel.setName("MemolCode");
-        notificationChannel.setDescription("TestCode");
-        notificationManager.createNotificationChannel(notificationChannel);
+    public void createNotification(){
 
-        Notification notification=new NotificationCompat.Builder(this,"MyNotifiChannel")
+        Notification notification=new NotificationCompat.Builder(getApplicationContext(),CHANNEL_ID_1)
                 .setSmallIcon(R.drawable.baseline_circle_notifications_24)
                 .setContentTitle("Test")
                 .setContentText("Test2")
                 .setAutoCancel(true)
                 .build();
-        return notification;
+        NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(100,notification);
     }
 
     public class MyBinder extends Binder {
@@ -97,9 +92,11 @@ public class PlayService extends Service {
                 mediaPlayer.release();
                 mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(path));
                 mediaPlayer.start();
+                createNotification();
             } else {
                 mediaPlayer= MediaPlayer.create(getApplicationContext(), Uri.parse(path));
                 mediaPlayer.start();
+                createNotification();
             }
         }catch (Exception e){
 
@@ -134,6 +131,7 @@ public void PlayMusic(){
       mediaPlayer.isPlaying();
   }
 }
+
 
 
 }

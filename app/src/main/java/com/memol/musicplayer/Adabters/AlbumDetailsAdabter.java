@@ -23,10 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
-import com.memol.musicplayer.AppGlide;
 import com.memol.musicplayer.G;
-
-
 import com.memol.musicplayer.Main.PlayActivity;
 import com.memol.musicplayer.Model.Song;
 import com.memol.musicplayer.R;

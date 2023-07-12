@@ -38,16 +38,19 @@ creatNotificationChannel();
     }
 
     private void creatNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel1=
-                    new NotificationChannel(CHANNEL_ID_1,"Channel(1)", NotificationManager.IMPORTANCE_HIGH);
+        NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        if (notificationManager!=null){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel1 =
+                    new NotificationChannel(CHANNEL_ID_1, "Channel(1)", NotificationManager.IMPORTANCE_DEFAULT);
             channel1.setDescription("Channel 1 Desc...");
-            NotificationChannel channel2=
-                    new NotificationChannel(CHANNEL_ID_2,"Channel(2)", NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel channel2 =
+                    new NotificationChannel(CHANNEL_ID_2, "Channel(2)", NotificationManager.IMPORTANCE_HIGH);
             channel2.setDescription("Channel 2 Desc...");
-            NotificationManager notificationManager=getSystemService(NotificationManager.class);
+
             notificationManager.createNotificationChannel(channel1);
             notificationManager.createNotificationChannel(channel2);
+        }
         }
     }
 

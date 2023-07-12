@@ -20,7 +20,9 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -140,6 +142,8 @@ holder.cardView.setOnClickListener(new View.OnClickListener() {
 
 
 
+
+
     }
 });
 
@@ -178,6 +182,13 @@ holder.btnMore.setOnClickListener(new View.OnClickListener() {
     }
 
     private void deleteFile(int position, View v) {
+        if (!Environment.isExternalStorageManager()){
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+            Uri uri = Uri.fromParts("package",context.getPackageName(),null);
+            intent.setData(uri);
+            context.startActivity(intent);
+        }
         Uri contentUri=ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 Long.parseLong(mFiles.get(position).getId()));
         File file=new File(mFiles.get(position).getPath());
